@@ -26,13 +26,39 @@ const myMiddleware = (store: any) => (next: any) => (action: any) => {
     return next(action);
 };
 // Middleware to modify API responses
-const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any) => {
+const deleteElement = () => {
+    const elements = document.querySelectorAll('.suggestion-list__divider');
 
+    // Iterate through each element to find the one with the desired text
+    elements.forEach((element:any) => {
+        console.log("element11")
+        // Check if the element contains the desired text
+        if (element.textContent.includes('Not in Channel')) {
+            // Get the parent of the target element
+            const parent = element.parentNode;
+
+            // Remove all sibling elements after the target element
+            let nextSibling = element.nextSibling;
+            while (nextSibling) {
+                const toRemove = nextSibling;
+                nextSibling = nextSibling.nextSibling;
+                parent.removeChild(toRemove);
+            }
+
+            // Optionally, remove the target element itself
+            parent.removeChild(element);
+        }
+    });
+}
+
+
+const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any) => {
+    deleteElement()
     if (action.payload) {
 
         const users = action.payload?.users
         const out_of_channel = action.payload?.out_of_channel;
-        console.log({users,out_of_channel});
+        console.log({ users, out_of_channel });
 
         if (users || out_of_channel) {
 
