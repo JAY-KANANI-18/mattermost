@@ -8,11 +8,19 @@ import {PluginRegistry} from '@/types/mattermost-webapp';
 
 import SidebarButton from './components/SidebarButton';
 
+import { Provider } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+
+
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     initialize(registry:any, store:any) {
         // Register a custom sidebar button
-        registry.registerLeftSidebarHeaderComponent( SidebarButton);
+        console.log('Store:', store);
+        console.log('Store State:', store.getState());
+        console.log('Dispatch Method:', store.dispatch);
+        console.log('Subscribe Method:', store.subscribe);
+        registry.registerLeftSidebarHeaderComponent( <Provider store={store}> <SidebarButton ></SidebarButton></Provider>);
     }
 
     uninitialize() {
