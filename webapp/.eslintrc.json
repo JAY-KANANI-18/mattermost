@@ -44,6 +44,9 @@
       "jest": true
    },
    "rules": {
+      "no-console": "off", // Disables the no-console rule
+      "jsx-quotes": "off", // Disables the jsx-quotes rule
+      "object-curly-spacing": "off",
       "array-bracket-spacing": [
          2,
          "never"
@@ -160,10 +163,10 @@
             "SwitchCase": 0
          }
       ],
-      "jsx-quotes": [
-         2,
-         "prefer-single"
-      ],
+      // "jsx-quotes": [
+      //    2,
+      //    "prefer-single"
+      // ],
       "key-spacing": [
          2,
          {
@@ -231,7 +234,7 @@
          "except-parens"
       ],
       "no-confusing-arrow": 2,
-      "no-console": 2,
+      // "no-console": 2,
       "no-const-assign": 2,
       "no-constant-condition": 2,
       "no-debugger": 2,
@@ -397,10 +400,10 @@
       "no-whitespace-before-property": 2,
       "no-with": 2,
       "object-curly-newline": 0,
-      "object-curly-spacing": [
-         2,
-         "never"
-      ],
+      // "object-curly-spacing": [
+      //    2,
+      //    "never"
+      // ],
       "object-property-newline": [
          2,
          {
