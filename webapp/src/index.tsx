@@ -20,7 +20,7 @@ export default class Plugin {
         console.log('Store State:', store.getState());
         console.log('Dispatch Method:', store.dispatch);
         console.log('Subscribe Method:', store.subscribe);
-        registry.registerLeftSidebarHeaderComponent(  <SidebarButton ></SidebarButton>);
+        registry.registerLeftSidebarHeaderComponent(  SidebarButton);
     }
 
     uninitialize() {
