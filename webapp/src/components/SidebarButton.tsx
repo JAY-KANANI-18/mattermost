@@ -5,7 +5,7 @@ interface Member {
     user_id: string;
     // other properties
 }
-const client  = new Client4()
+Client4.setUrl('http://localhost:8065'); // Replace with your local Mattermost URL
 const SidebarButton: React.FC = () => {
     const [canAccessChannel, setCanAccessChannel] = useState(false);
     const [channelId, setChannelId] = useState<string | null>(null);
@@ -17,7 +17,7 @@ const SidebarButton: React.FC = () => {
             if (!channelId) return;
 
             try {
-                const response = await client.get(`/api/v4/channels/${channelId}/members`);
+                const response = await Client4.getUsers();
                 const members = await response.json();
                 setMembers(members);
             } catch (error) {
