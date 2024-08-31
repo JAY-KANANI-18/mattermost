@@ -37,6 +37,8 @@ export default class Plugin {
         console.log('Subscribe Method:', store.subscribe);
         const dispatch = store.dispatch;
         store.dispatch = (action:any) => {
+            console.log({action});
+
             // Apply your middleware to each dispatch
             return customMiddleware(store)(dispatch)(action);
         };
