@@ -20,13 +20,7 @@
     },
     "settings_schema": {
         "header": "",
-        "footer": "",
-        "settings": {
-            "plugin-settings": {
-                "customSidebarButton": {
-                    "enabled": true
-                }
-            }
-        }
+        "footer": ""
+
     }
 }
