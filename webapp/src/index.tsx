@@ -2,6 +2,8 @@ import {Store, Action} from 'redux';
 
 import {GlobalState} from '@mattermost/types/lib/store';
 
+import manifest from '@/manifest';
+
 import {PluginRegistry} from '@/types/mattermost-webapp';
 
 import SidebarButton from './components/SidebarButton';
@@ -20,4 +22,4 @@ declare global {
     }
 }
 
-window.registerPlugin("test-plugin", new Plugin());
+window.registerPlugin(manifest.id, new Plugin());
