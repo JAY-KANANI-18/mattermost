@@ -22,5 +22,16 @@
         "header": "",
         "footer": ""
 
-    }
+    },
+    "sidebar": {
+        "buttons": [
+          {
+            "id": "my-plugin-sidebar-button",
+            "icon": "rocket",
+            "label": "My Button",
+            "component": "./webapp/src/components/SidebarButton"
+          }
+        ]
+      }
+
 }
