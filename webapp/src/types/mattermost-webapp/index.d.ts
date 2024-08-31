@@ -1,6 +1,5 @@
 export interface PluginRegistry {
-    registerPostTypeComponent(typeName: string, component: React.ElementType)
-    registerSidebarButton(typeName: string, component: React.ElementType)
+    registerLeftSidebarHeaderComponent( component: React.ElementType)
 
     // Add more if needed from https://developers.mattermost.com/extend/plugins/webapp/reference
 }

@@ -10,9 +10,13 @@ import SidebarButton from './components/SidebarButton';
 
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
-        // Register your custom sidebar button
-        registry.registerSidebarButton('my-plugin-sidebar-button', SidebarButton);
+    initialize(registry:any, store:any) {
+        // Register a custom sidebar button
+        registry.registerLeftSidebarHeaderComponent( SidebarButton);
+    }
+
+    uninitialize() {
+        // Clean up if needed when the plugin is uninstalled
     }
 }
 
