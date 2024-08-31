@@ -1,5 +1,4 @@
 import React from 'react';
-import { ChannelIcon } from 'components/widgets/icons'; // Adjust import as needed
 
 const SidebarButton: React.FC = () => {
     const handleClick = () => {
@@ -13,7 +12,6 @@ const SidebarButton: React.FC = () => {
             onClick={handleClick}
             style={{ cursor: 'pointer', padding: '10px', display: 'flex', alignItems: 'center' }}
         >
-            <ChannelIcon />
             <span style={{ marginLeft: '8px' }}>{'My Button'}</span>
         </div>
     );
