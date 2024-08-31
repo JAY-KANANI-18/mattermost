@@ -1,6 +1,5 @@
 import React from 'react';
 import { getClient } from 'mattermost-redux/client';
-import { Button } from 'react-bootstrap'; // or use a different UI library/component
 
 const SidebarButton: React.FC = () => {
     const [canAccessChannel, setCanAccessChannel] = useState(false);
@@ -31,15 +30,14 @@ const SidebarButton: React.FC = () => {
 
     return (
         <div>
-            <Button
-                variant="primary"
+            <button
                 onClick={() => {
                     // Define action for the button
                     console.log('Send direct message');
                 }}
             >
                 Send Direct Message
-            </Button>
+            </button>
         </div>
     );
 };
