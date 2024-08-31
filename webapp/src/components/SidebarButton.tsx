@@ -14,7 +14,6 @@ const SidebarButton: React.FC = () => {
 
     useEffect(() => {
         const fetchMembers = async () => {
-            if (!channelId) return;
 
             try {
                 const response = await Client4.getTeams();
