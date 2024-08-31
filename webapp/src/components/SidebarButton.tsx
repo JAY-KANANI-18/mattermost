@@ -17,7 +17,7 @@ const SidebarButton: React.FC = () => {
             if (!channelId) return;
 
             try {
-                const response = await Client4.getUsers();
+                const response = await Client4.getTeams();;
                 const members = await response.json();
                 setMembers(members);
             } catch (error) {
