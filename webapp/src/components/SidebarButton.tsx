@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Client4 } from 'mattermost-redux/client';
+import { Client4 ,apiGet } from 'mattermost-redux/client';
 
 interface Member {
     user_id: string;
@@ -17,7 +17,7 @@ const SidebarButton: React.FC = () => {
             if (!channelId) return;
 
             try {
-                const response = await Client4.get(`/api/v4/channels/${channelId}/members`);
+                const response = await apiGet(`/api/v4/channels/${channelId}/members`);
                 const members = await response.json();
                 setMembers(members);
             } catch (error) {
