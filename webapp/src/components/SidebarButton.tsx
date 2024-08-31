@@ -17,7 +17,7 @@ const SidebarButton: React.FC = () => {
             if (!channelId) return;
 
             try {
-                const response = await Client4.getTeams();;
+                const response = await Client4.getTeams();
                 const members = await response.json();
                 setMembers(members);
             } catch (error) {
@@ -34,8 +34,7 @@ const SidebarButton: React.FC = () => {
         <div>
             <button
                 onClick={() => {
-                    // Define action for the button
-                    console.log('Send direct message');
+                    console.log('Send direct message')
                 }}
             >
                 Send Direct Message
