@@ -21,13 +21,12 @@
     "settings_schema": {
         "header": "",
         "footer": "",
-        "settings": []
-    },
-    "settings": {
-        "plugin-settings": {
-            "customSidebarButton": {
-                "enabled": true
+        "settings": {
+            "plugin-settings": {
+                "customSidebarButton": {
+                    "enabled": true
+                }
             }
         }
-    }
+    },
 }
