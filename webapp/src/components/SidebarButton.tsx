@@ -1,34 +1,34 @@
-import React from 'react';
-import { Client4 } from 'mattermost-redux/client';
 import React, { useState, useEffect } from 'react';
+import { Client4 } from 'mattermost-redux/client';
+
+interface Member {
+    user_id: string;
+    // other properties
+}
 
 const SidebarButton: React.FC = () => {
     const [canAccessChannel, setCanAccessChannel] = useState(false);
     const [channelId, setChannelId] = useState<string | null>(null);
+    const [members, setMembers] = useState<Member[]>([]);
+    const currentUser = { id: 'current-user-id' }; // Define your current user
 
     useEffect(() => {
-        const fetchAccess = async () => {
-            const client = getClient();
+        const fetchMembers = async () => {
+            if (!channelId) return;
+
             try {
-                // Replace 'channelId' with the ID of the channel you want to check access for
-                const response = await client.get(`/api/v4/channels/${channelId}/members`);
+                const response = await Client4.get(`/api/v4/channels/${channelId}/members`);
                 const members = await response.json();
-                // Check if current user is a member
-                const currentUser = await client.get('/api/v4/users/me');
-                const isMember = members.some((member:any) => member.user_id === currentUser.id);
-                setCanAccessChannel(isMember);
+                setMembers(members);
             } catch (error) {
-                console.error('Error fetching channel access:', error);
-                setCanAccessChannel(false); // Default to not having access if there's an error
+                console.error('Error fetching members:', error);
             }
         };
 
-        fetchAccess();
-    }, []);
+        fetchMembers();
+    }, [channelId]);
 
-    if (!canAccessChannel) {
-        return null; // Hide the component if user does not have access
-    }
+    const isMember = members.some((member: Member) => member.user_id === currentUser.id);
 
     return (
         <div>
