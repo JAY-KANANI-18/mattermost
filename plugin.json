@@ -22,5 +22,12 @@
         "header": "",
         "footer": "",
         "settings": []
+    },
+    "settings": {
+        "plugin-settings": {
+            "customSidebarButton": {
+                "enabled": true
+            }
+        }
     }
 }

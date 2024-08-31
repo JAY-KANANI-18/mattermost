@@ -2,14 +2,15 @@ import {Store, Action} from 'redux';
 
 import {GlobalState} from '@mattermost/types/lib/store';
 
-import manifest from '@/manifest';
-
 import {PluginRegistry} from '@/types/mattermost-webapp';
+
+import SidebarButton from './components/SidebarButton';
 
 export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     public async initialize(registry: PluginRegistry, store: Store<GlobalState, Action<Record<string, unknown>>>) {
-        // @see https://developers.mattermost.com/extend/plugins/webapp/reference/
+        // Register your custom sidebar button
+        registry.registerSidebarButton('my-plugin-sidebar-button', SidebarButton);
     }
 }
 
@@ -19,4 +20,4 @@ declare global {
     }
 }
 
-window.registerPlugin(manifest.id, new Plugin());
+window.registerPlugin("test-plugin", new Plugin());
