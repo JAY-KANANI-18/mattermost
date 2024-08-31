@@ -75,7 +75,7 @@ export default class Plugin {
             console.log({ action });
 
             // Apply your middleware to each dispatch
-            return customMiddleware(store)(dispatch)(action);
+            return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         registry.registerLeftSidebarHeaderComponent(SidebarButton);
     }
