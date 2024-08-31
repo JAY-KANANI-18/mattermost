@@ -20,7 +20,6 @@ const SidebarButton: React.FC = () => {
                 const response = await Client4.getTeams();
                 console.log({response});
 
-                setMembers(response);
             } catch (error) {
                 console.error('Error fetching members:', error);
             }
