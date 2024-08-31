@@ -1,8 +1,9 @@
 import React from 'react';
+import { ChannelIcon } from 'components/widgets/icons'; // Adjust import as needed
 
 const SidebarButton: React.FC = () => {
     const handleClick = () => {
-        // Define what happens when the button is clicked
+        // eslint-disable-next-line no-console
         console.log('Sidebar button clicked');
     };
 
@@ -12,7 +13,8 @@ const SidebarButton: React.FC = () => {
             onClick={handleClick}
             style={{ cursor: 'pointer', padding: '10px', display: 'flex', alignItems: 'center' }}
         >
-            <span style={{ marginLeft: '8px' }}>My Button</span>
+            <ChannelIcon />
+            <span style={{ marginLeft: '8px' }}>{'My Button'}</span>
         </div>
     );
 };
