@@ -18,8 +18,9 @@ const SidebarButton: React.FC = () => {
 
             try {
                 const response = await Client4.getTeams();
-                const members = await response.json();
-                setMembers(members);
+                console.log({response});
+
+                setMembers(response);
             } catch (error) {
                 console.error('Error fetching members:', error);
             }
