@@ -5,6 +5,8 @@ interface Member {
     user_id: string;
     // other properties
 }
+const client = new Client4();
+
 
 const SidebarButton: React.FC = () => {
     const [canAccessChannel, setCanAccessChannel] = useState(false);
@@ -17,7 +19,7 @@ const SidebarButton: React.FC = () => {
             if (!channelId) return;
 
             try {
-                const response = await apiGet(`/api/v4/channels/${channelId}/members`);
+                const response = await client.apiGet(`/api/v4/channels/${channelId}/members`);
                 const members = await response.json();
                 setMembers(members);
             } catch (error) {
