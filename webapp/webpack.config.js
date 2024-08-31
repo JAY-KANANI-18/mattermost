@@ -41,7 +41,7 @@ const config = {
             'src',
             'node_modules',
             path.resolve(__dirname),
-            path.resolve(__dirname, 'node_modules')
+            path.resolve(__dirname, 'node_modules'),
         ],
         extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
     },
