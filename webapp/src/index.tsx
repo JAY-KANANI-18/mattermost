@@ -17,6 +17,8 @@ const myMiddleware = (store:any) => (next:any) => (action:any) => {
 
     // Example: Only allow actions of a specific type
     if (action.type === 'MY_CUSTOM_ACTION') {
+        console.log({type:action.type});
+
         // Do something with the action or state
     }
 
