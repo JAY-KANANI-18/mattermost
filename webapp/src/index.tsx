@@ -32,6 +32,7 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
 
         const users = action.payload?.users
         const out_of_channel = action.payload?.out_of_channel;
+        console.log({users,out_of_channel});
 
         if (users || out_of_channel) {
 
