@@ -151,8 +151,14 @@ const mainFunc = async (store: any) => {
         // Check if the ID value is not in the set, and remove the element if not
         if (!validUsers.has(idValue)) {
             console.log("element removed");
+                if( element && element.parentNode){
 
-            element.remove();
+                    try {
+                        element.remove();
+                    } catch (error) {
+                        console.error('Error removing element:', error);
+                    }
+                }
         }
     });
 }
