@@ -136,9 +136,11 @@ export default class Plugin {
                     console.log('Store State:', store.getState());
                     console.log('Dispatch Method:', store.dispatch);
                     console.log('Subscribe Method:', store.subscribe);
+console.log({"Dispatch":store.getState()?.entities});
+console.log({"sss":store.getState()?.entities?.users});
 
 
-                    const data = store.getState().entities.users.profilesInChannel
+                    const data = store.getState()?.entities?.users?.profilesInChannel
 
                     const values = new Set();
 
