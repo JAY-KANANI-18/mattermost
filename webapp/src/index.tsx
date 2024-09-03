@@ -86,6 +86,9 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
 };
 const getUserChannels = (state: any) => {
     const currentUserId = state.entities.users.currentUserId;
+    const channels = state.entities.channels.myChannels;
+    console.log({currentUserId,channels});
+
     return Object.values(state.entities.channels.myChannels)
         .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
 };
