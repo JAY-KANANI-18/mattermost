@@ -168,22 +168,26 @@ export default class Plugin {
             const token = store.getState().entities.general.config.Token;
             const channelIds = Object.keys(state.entities.channels.channels);
             const currentTeams = store.getState().entities.teams.currentTeamId;
-            const channnel = (await this.currentTeam(currentTeams, token)).filter((each: any) => each.display_name !== "Town Square" || each.display_name)
+            let  channnel = await this.currentTeam(currentTeams, token)
+            console.log({ channnel });
+
+            channnel =  channnel.filter((each: any) => each.display_name !== "Town Square" || each.display_name)
+
+            console.log("efe",{ channnel });
 
 
 
-
-            let arr:any = []
+            let arr: any = []
 
             for (const cham of channnel) {
                 const channelId = cham.id
                 const members = await this.UserInChannel(channelId, token);
 
 
-                console.log({members  });
+                console.log({ members });
 
 
-                arr.push(members.map((each:any)=> each.username))
+                arr.push(members.map((each: any) => each.username))
                 arr = arr.flat(Infinity)
                 // const userIds = members.map((member: any) => member.user_id);
 
@@ -210,12 +214,12 @@ export default class Plugin {
 
 
             const validUsers = new Set(arr)
-            console.log({validUsers,arr});
+            console.log({ validUsers, arr });
 
             const elements = document.querySelectorAll('[id^="switchChannel_"]');
 
             // Iterate through the elements and remove those not in the set
-            elements.forEach((element:any) => {
+            elements.forEach((element: any) => {
                 // Extract the part of the ID after "switchChannel_"
                 const idValue = element.id.replace("switchChannel_", "");
 
