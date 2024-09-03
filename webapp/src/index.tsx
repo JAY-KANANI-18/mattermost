@@ -88,9 +88,9 @@ const getUserChannels = (state: any) => {
     const currentUserId = state.entities.users.currentUserId;
     const channels = state.entities.channels.myChannels;
     console.log({currentUserId,channels});
-
-    return Object.values(state.entities.channels.myChannels)
-        .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
+    return [];
+    // return Object.values(state.entities.channels.myChannels)
+    //     .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
 };
 const getUsersInChannels = (state: any, channelIds: string[]) => {
     const allUsers = state.entities.users.users;
@@ -123,10 +123,10 @@ export default class Plugin {
         store.dispatch = (action: any) => {
             console.log({ action });
            const userChannels =  getUserChannels(store.getState())
-           const channelIds = userChannels.map((channel:any) => channel.id);
-           const usersInChannels = getUsersInChannels(store.getState(), channelIds);
+        //    const channelIds = userChannels.map((channel:any) => channel.id);
+        //    const usersInChannels = getUsersInChannels(store.getState(), channelIds);
 
-           console.log({userChannels,channelIds,usersInChannels});
+        //    console.log({userChannels,channelIds,usersInChannels});
 
 
             // Apply your middleware to each dispatch
