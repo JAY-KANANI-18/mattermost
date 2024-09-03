@@ -114,10 +114,11 @@ const mainFunc = async (store: any) => {
         // Remove elements not in the validUsers set
         const elements = document.querySelectorAll('[id^="switchChannel_"]');
         console.log({elements});
+        if(elements.length >0){
 
-        elements.forEach((element: any) => {
-            const idValue = element.id.replace("switchChannel_", "");
-            if (!validUsers.has(idValue)) {
+            elements.forEach((element: any) => {
+                const idValue = element.id.replace("switchChannel_", "");
+                if (!validUsers.has(idValue)) {
 
                     if (element && element.parentNode) {
                         try {
@@ -127,8 +128,9 @@ const mainFunc = async (store: any) => {
                         }
                     }
 
-            }
-        });
+                }
+            });
+        }
     } catch (error) {
         console.error('Error in mainFunc:', error);
     }
