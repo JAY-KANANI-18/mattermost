@@ -5,6 +5,7 @@ import { Client4 } from '@mattermost/client';
 
 
 import manifest from '@/manifest';
+import axios from 'axios';
 
 import { PluginRegistry } from '@/types/mattermost-webapp';
 
@@ -125,6 +126,16 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
 export default class Plugin {
 
 
+    private async fetchChannelMembers(channelId: string, token: string) {
+        const response = await axios.get(`${"http://your-mattermost-server/api/v4"}/channels/${channelId}/members`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    }
+
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     initialize(registry: any, store: any) {
         // Register a custom sidebar button
@@ -137,32 +148,31 @@ export default class Plugin {
 
 
 
-            const client = Client4;
 
 
 
 
             const state = store.getState() as GlobalState;
             const channelIds = Object.keys(state.entities.channels.channels); // Get all channel IDs or specific ones
-
+            const token = store.getState().entities.general.config.Token;
             for (const channelId of channelIds) {
 
                     // Fetch members of the channel
-                    const members = await client.getChannelMembers(channelId);
+                    const members = await this.fetchChannelMembers(channelId,token);
                     const userIds = members.map((member:any) => member.user_id);
+console.log({members , userIds});
 
-                    // Fetch user profiles
-                    const profiles = await client.getUsersByIds(userIds);
+                    // // Fetch user profiles
 
-                    console.log('Channel ID:', channelId);
-                    console.log('Profiles In Channel:', profiles);
+                    // console.log('Channel ID:', channelId);
+                    // console.log('Profiles In Channel:', profiles);
 
-                    // Process profiles as needed
-                    const values = new Set<string>();
-                    profiles.forEach((profile:any) => values.add(profile.id));
+                    // // Process profiles as needed
+                    // const values = new Set<string>();
+                    // profiles.forEach((profile:any) => values.add(profile.id));
 
-                    const uniqueValuesArray = Array.from(values);
-                    console.log('Unique Values:', uniqueValuesArray);
+                    // const uniqueValuesArray = Array.from(values);
+                    // console.log('Unique Values:', uniqueValuesArray);
 
                 }
 
