@@ -138,7 +138,7 @@ export default class Plugin {
                     console.log('Subscribe Method:', store.subscribe);
 
 
-                    const data = store.entities.users.profilesInChannel
+                    const data = store.getState().entities.users.profilesInChannel
 
                     const values = new Set();
 
