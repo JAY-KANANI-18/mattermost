@@ -113,23 +113,39 @@ const mainFunc = async (store: any) => {
 
         // Remove elements not in the validUsers set
         const elements = document.querySelectorAll('[id^="switchChannel_"]');
+        console.log({elements});
+
         elements.forEach((element: any) => {
             const idValue = element.id.replace("switchChannel_", "");
             if (!validUsers.has(idValue)) {
-                if (element && element.parentNode) {
-                    try {
-                        element.remove();
-                    } catch (error) {
-                        console.error('Error removing element:', error);
+
+                    if (element && element.parentNode) {
+                        try {
+                            element.parentNode.removeChild(element);
+                        } catch (error) {
+                            console.error('Error safely removing element:', error);
+                        }
                     }
-                }
+
             }
         });
     } catch (error) {
         console.error('Error in mainFunc:', error);
     }
 };
+const observeDOMChanges = (store:any) => {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList') {
+                // Re-run your main function or logic here
+                mainFunc(store);
+            }
+        });
+    });
 
+    // Observe changes in the body or any specific container element
+    observer.observe(document.body, { childList: true, subtree: true });
+};
 const UserInChannel = async (channelId: any, token: any) => {
     const response = await axios.get(`http://localhost:8065/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
 `, {
@@ -207,6 +223,7 @@ export default class Plugin {
     async initialize(registry: any, store: any) {
         // Register a custom sidebar button
         const customMiddleware = myMiddleware;
+        observeDOMChanges(store)
 
 
 
