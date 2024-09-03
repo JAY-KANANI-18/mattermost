@@ -209,8 +209,21 @@ export default class Plugin {
 
 
 
-            const uniqueUsers = new Set(arr)
-            console.log({uniqueUsers,arr});
+            const validUsers = new Set(arr)
+            console.log({validUsers,arr});
+
+            const elements = document.querySelectorAll('[id^="switchChannel_"]');
+
+            // Iterate through the elements and remove those not in the set
+            elements.forEach((element:any) => {
+                // Extract the part of the ID after "switchChannel_"
+                const idValue = element.id.replace("switchChannel_", "");
+
+                // Check if the ID value is not in the set, and remove the element if not
+                if (!validUsers.has(idValue)) {
+                    element.remove();
+                }
+            });
 
             const userChannels = getUserChannels(store.getState())
 
