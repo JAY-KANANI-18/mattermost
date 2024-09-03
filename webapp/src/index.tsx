@@ -28,7 +28,7 @@ const myMiddleware = (store: any) => (next: any) => (action: any) => {
 const deleteElement = () => {
     const elements = document.querySelectorAll('.suggestion-list__divider');
 
-    elements.forEach((element) => {
+    elements.forEach((element:any) => {
         // Check if the element contains the desired text
         if (element.textContent.includes('Not in Channel')) {
             // Get the parent of the target element
