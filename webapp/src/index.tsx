@@ -171,7 +171,8 @@ export default class Plugin {
             let  channnel = await this.currentTeam(currentTeams, token)
             console.log({ channnel });
 
-            channnel =  channnel.filter((each: any) => (each.display_name !== "Town Square") || (each.display_name))
+            channnel =  channnel.filter((each: any) => each.display_name !== "Town Square" )
+            channnel =  channnel.filter((each: any) => each.display_name !== "" )
 
             console.log("efe",{ channnel });
 
