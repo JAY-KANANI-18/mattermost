@@ -84,7 +84,26 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
     // For other actions, just continue as normal
     return next(action);
 };
+const getUserChannels = (state: any) => {
+    const currentUserId = state.entities.users.currentUserId;
+    return Object.values(state.entities.channels.myChannels)
+        .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
+};
+const getUsersInChannels = (state: any, channelIds: string[]) => {
+    const allUsers = state.entities.users.users;
+    const usersInChannels = new Set();
 
+    channelIds.forEach(channelId => {
+        const memberIds = state.entities.channels.membersInChannel[channelId] || [];
+        memberIds.forEach((userId:any) => {
+            if (allUsers[userId]) {
+                usersInChannels.add(allUsers[userId]);
+            }
+        });
+    });
+
+    return Array.from(usersInChannels);
+};
 export default class Plugin {
 
 
@@ -100,6 +119,12 @@ export default class Plugin {
         const dispatch = store.dispatch;
         store.dispatch = (action: any) => {
             console.log({ action });
+           let userChannels =  getUserChannels(store.getState())
+           const channelIds = userChannels.map((channel:any) => channel.id);
+           const usersInChannels = getUsersInChannels(store.getState(), channelIds);
+
+           console.log({userChannels,channelIds,usersInChannels});
+
 
             // Apply your middleware to each dispatch
             return modifyApiResponseMiddleware(store)(dispatch)(action);
