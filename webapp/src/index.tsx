@@ -92,76 +92,44 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
     return Array.from(usersInChannels);
 };
 const mainFunc = async (store: any) => {
+    try {
+        const state = store.getState() as GlobalState;
+        const token = state.entities.general.config.Token;
+        const channelIds = Object.keys(state.entities.channels.channels);
+        const currentTeams = state.entities.teams.currentTeamId;
 
-    const state = store.getState() as GlobalState;
-    const token = store.getState().entities.general.config.Token;
-    const channelIds = Object.keys(state.entities.channels.channels);
-    const currentTeams = store.getState().entities.teams.currentTeamId;
-    let channnel = await currentTeam(currentTeams, token)
-    console.log({ channnel });
+        // Fetch channels
+        let channels = await currentTeam(currentTeams, token);
+        channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
 
-    channnel = channnel.filter((each: any) => each.display_name !== "Town Square")
-    channnel = channnel.filter((each: any) => each.display_name !== "")
+        // Get usernames of members in filtered channels
+        let usernames: string[] = [];
+        for (const channel of channels) {
+            const members = await UserInChannel(channel.id, token);
+            usernames.push(...members.map((member: any) => member.username));
+        }
 
-    console.log("efe", { channnel });
+        const validUsers = new Set(usernames);
 
-
-
-    let arr: any = []
-
-    for (const cham of channnel) {
-        const channelId = cham.id
-        const members = await UserInChannel(channelId, token);
-
-
-        console.log({ members });
-
-
-        arr.push(members.map((each: any) => each.username))
-        arr = arr.flat(Infinity)
-        // const userIds = members.map((member: any) => member.user_id);
-
-        // console.log('Channel ID:', channelId);
-        // console.log('Profiles In Channel:', profiles);
-
-        // // Process profiles as needed
-        // const values = new Set<string>();
-        // profiles.forEach((profile:any) => values.add(profile.id));
-
-        // const uniqueValuesArray = Array.from(values);
-        // console.log('Unique Values:', uniqueValuesArray);
-
-    }
-
-
-
-
-
-
-    const validUsers = new Set(arr)
-    console.log({ validUsers, arr });
-
-    const elements = document.querySelectorAll('[id^="switchChannel_"]');
-
-    // Iterate through the elements and remove those not in the set
-    elements.forEach((element: any) => {
-        // Extract the part of the ID after "switchChannel_"
-        const idValue = element.id.replace("switchChannel_", "");
-
-        // Check if the ID value is not in the set, and remove the element if not
-        if (!validUsers.has(idValue)) {
-            console.log("element removed");
-                if( element && element.parentNode){
-
+        // Remove elements not in the validUsers set
+        const elements = document.querySelectorAll('[id^="switchChannel_"]');
+        elements.forEach((element: any) => {
+            const idValue = element.id.replace("switchChannel_", "");
+            if (!validUsers.has(idValue)) {
+                if (element && element.parentNode) {
                     try {
                         element.remove();
                     } catch (error) {
                         console.error('Error removing element:', error);
                     }
                 }
-        }
-    });
-}
+            }
+        });
+    } catch (error) {
+        console.error('Error in mainFunc:', error);
+    }
+};
+
 const UserInChannel = async (channelId: any, token: any) => {
     const response = await axios.get(`http://localhost:8065/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
 `, {
