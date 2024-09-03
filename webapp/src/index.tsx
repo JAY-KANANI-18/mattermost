@@ -168,20 +168,15 @@ export default class Plugin {
             const token = store.getState().entities.general.config.Token;
             const channelIds = Object.keys(state.entities.channels.channels);
             const currentTeams = store.getState().entities.teams.currentTeamId;
-            const channnel = await this.currentTeam(currentTeams, token)
-            console.log({ channnel, currentTeams });
+            const channnel = (await this.currentTeam(currentTeams, token)).filter((each: any) => each.display_name === "Town Square" || !each.display_name)
 
-            const  defaultChannel = channnel.filter((each: any) => each.display_name === "Town Square")[0].id
-            console.log({defaultChannel});
 
-            const arr = []
 
-            for (const channelId of channelIds) {
 
-                if (defaultChannel == channelId) {
-                    continue;
-                }console.log({channelId});
+            let arr:any = []
 
+            for (const cham of channnel) {
+                const channelId = cham.id
                 const members = await this.UserInChannel(channelId, token);
 
 
@@ -189,7 +184,7 @@ export default class Plugin {
 
 
                 arr.push(members.map((each:any)=> each.username))
-                arr.flat()
+                arr = arr.flat(Infinity)
                 // const userIds = members.map((member: any) => member.user_id);
 
                 // console.log('Channel ID:', channelId);
