@@ -180,12 +180,16 @@ export default class Plugin {
 
                 if (defaultChannel == channelId) {
                     continue;
-                }
+                }console.log({channelId});
+
                 const members = await this.UserInChannel(channelId, token);
-                console.log({members , channelId});
 
 
-                arr.push(members.username)
+                console.log({members  });
+
+
+                arr.push(members.map((each:any)=> each.username))
+                arr.flat()
                 // const userIds = members.map((member: any) => member.user_id);
 
                 // console.log('Channel ID:', channelId);
