@@ -1,6 +1,8 @@
 import { Store, Action } from 'redux';
 
 import { GlobalState } from '@mattermost/types/lib/store';
+import { Client4 } from '@mattermost/client';
+
 
 import manifest from '@/manifest';
 
@@ -30,11 +32,11 @@ const deleteElement = () => {
 
     const element = document.querySelector('[data-testid="mentionSuggestion_admin616"]');
 
-// Check if the element exists
-if (element) {
-    // Remove the element from the DOM
-    element.remove();
-}
+    // Check if the element exists
+    if (element) {
+        // Remove the element from the DOM
+        element.remove();
+    }
 
 
 
@@ -42,7 +44,7 @@ if (element) {
     const elements = document.querySelectorAll('.suggestion-list__divider');
 
     // Iterate through each element to find the one with the desired text
-    elements.forEach((element:any) => {
+    elements.forEach((element: any) => {
         console.log("element11")
         // Check if the element contains the desired text
         if (element.textContent.includes('Not in Channel')) {
@@ -98,10 +100,10 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
 };
 const getUserChannels = (state: any) => {
 
-        const currentUserId = state.entities.users.currentUserId;
-        const channels = state.entities.channels.channels;
-        console.log({currentUserId,channels});
-        return [];
+    const currentUserId = state.entities.users.currentUserId;
+    const channels = state.entities.channels.channels;
+    console.log({ currentUserId, channels });
+    return [];
     // return Object.values(state.entities.channels.myChannels)
     //     .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
 };
@@ -111,7 +113,7 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
 
     channelIds.forEach(channelId => {
         const memberIds = state.entities.channels.membersInChannel[channelId] || [];
-        memberIds.forEach((userId:any) => {
+        memberIds.forEach((userId: any) => {
             if (allUsers[userId]) {
                 usersInChannels.add(allUsers[userId]);
             }
@@ -129,38 +131,83 @@ export default class Plugin {
         const customMiddleware = myMiddleware;
 
 
-        setInterval(() => {
-            const userChannels =  getUserChannels(store.getState())
-
-                    console.log('Store:', store);
-                    console.log('Store State:', store.getState());
-                    console.log('Dispatch Method:', store.dispatch);
-                    console.log('Subscribe Method:', store.subscribe);
-console.log({"Dispatch":store.getState()?.entities});
-console.log({"sss":store.getState()?.entities?.users});
+        setInterval(async () => {
 
 
-                    const data = store.getState()?.entities?.users?.profilesInChannel
 
-                    const values = new Set();
 
-                    for (const key in data) {
-                        if (Array.isArray(data[key])) {
-                            data[key].forEach((item:any) => values.add(item.value));
-                        }
-                    }
+
+            const client = Client4;
+
+
+
+
+            const state = store.getState() as GlobalState;
+            const channelIds = Object.keys(state.entities.channels.channels); // Get all channel IDs or specific ones
+
+            for (const channelId of channelIds) {
+
+                    // Fetch members of the channel
+                    const members = await client.getChannelMembers(channelId);
+                    const userIds = members.map((member:any) => member.user_id);
+
+                    // Fetch user profiles
+                    const profiles = await client.getUsersByIds(userIds);
+
+                    console.log('Channel ID:', channelId);
+                    console.log('Profiles In Channel:', profiles);
+
+                    // Process profiles as needed
+                    const values = new Set<string>();
+                    profiles.forEach((profile:any) => values.add(profile.id));
 
                     const uniqueValuesArray = Array.from(values);
-                    console.log({uniqueValuesArray});
+                    console.log('Unique Values:', uniqueValuesArray);
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+            const userChannels = getUserChannels(store.getState())
+
+            console.log('Store:', store);
+            console.log('Store State:', store.getState());
+            console.log('Dispatch Method:', store.dispatch);
+            console.log('Subscribe Method:', store.subscribe);
+            console.log({ "Dispatch": store.getState()?.entities });
+            console.log({ "sss": store.getState()?.entities?.users });
+
+
+            const data = store.getState()?.entities?.users?.profilesInChannel
+
+            const values = new Set();
+
+            for (const key in data) {
+                if (Array.isArray(data[key])) {
+                    data[key].forEach((item: any) => values.add(item.value));
+                }
+            }
+
+            const uniqueValuesArray = Array.from(values);
+            console.log({ uniqueValuesArray });
 
         }, 10000);
         const dispatch = store.dispatch;
         store.dispatch = (action: any) => {
             // console.log({ action });
-        //    const channelIds = userChannels.map((channel:any) => channel.id);
-        //    const usersInChannels = getUsersInChannels(store.getState(), channelIds);
+            //    const channelIds = userChannels.map((channel:any) => channel.id);
+            //    const usersInChannels = getUsersInChannels(store.getState(), channelIds);
 
-        //    console.log({userChannels,channelIds,usersInChannels});
+            //    console.log({userChannels,channelIds,usersInChannels});
 
 
             // Apply your middleware to each dispatch
