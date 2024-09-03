@@ -25,48 +25,31 @@ const myMiddleware = (store: any) => (next: any) => (action: any) => {
     // Proceed to the next middleware or reducer
     return next(action);
 };
+// Middleware to modify API responses
 const deleteElement = () => {
     const elements = document.querySelectorAll('.suggestion-list__divider');
 
+    // Iterate through each element to find the one with the desired text
     elements.forEach((element:any) => {
+        console.log("element11")
         // Check if the element contains the desired text
         if (element.textContent.includes('Not in Channel')) {
             // Get the parent of the target element
             const parent = element.parentNode;
 
-            // Ensure parent exists and the element is still in the DOM
-            if (parent && parent.contains(element)) {
-                // Remove all sibling elements after the target element
-                let nextSibling = element.nextSibling;
-                while (nextSibling) {
-                    const toRemove = nextSibling;
-                    nextSibling = nextSibling.nextSibling;
-
-                    // Ensure 'toRemove' is a valid child of the parent before removing
-                    if (parent.contains(toRemove)) {
-                        try {
-                            parent.removeChild(toRemove);
-                        } catch (error) {
-                            console.error('Failed to remove child:', toRemove, error);
-                        }
-                    }
-                }
-
-                // Optionally, remove the target element itself
-                if (parent.contains(element)) {
-                    try {
-                        parent.removeChild(element);
-                    } catch (error) {
-                        console.error('Failed to remove element:', element, error);
-                    }
-                }
-            } else {
-                console.error('Parent is null or element is not a child of its parent:', element);
+            // Remove all sibling elements after the target element
+            let nextSibling = element.nextSibling;
+            while (nextSibling) {
+                const toRemove = nextSibling;
+                nextSibling = nextSibling.nextSibling;
+                parent.removeChild(toRemove);
             }
+
+            // Optionally, remove the target element itself
+            parent.removeChild(element);
         }
     });
-};
-
+}
 
 
 const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any) => {
