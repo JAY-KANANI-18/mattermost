@@ -178,7 +178,7 @@ export default class Plugin {
 
             for (const channelId of channelIds) {
 
-                if (defaultChannel) {
+                if (defaultChannel == channelId) {
                     continue;
                 }
                 const members = await this.UserInChannel(channelId, token);
