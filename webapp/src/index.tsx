@@ -27,6 +27,18 @@ const myMiddleware = (store: any) => (next: any) => (action: any) => {
 };
 // Middleware to modify API responses
 const deleteElement = () => {
+
+    const element = document.querySelector('[data-testid="mentionSuggestion_admin616"]');
+
+// Check if the element exists
+if (element) {
+    // Remove the element from the DOM
+    element.remove();
+}
+
+
+
+
     const elements = document.querySelectorAll('.suggestion-list__divider');
 
     // Iterate through each element to find the one with the desired text
@@ -124,6 +136,20 @@ export default class Plugin {
                     console.log('Store State:', store.getState());
                     console.log('Dispatch Method:', store.dispatch);
                     console.log('Subscribe Method:', store.subscribe);
+
+
+                    const data = store.entities.users.profilesInChannel
+
+                    const values = new Set();
+
+                    for (const key in data) {
+                        if (Array.isArray(data[key])) {
+                            data[key].forEach(item => values.add(item.value));
+                        }
+                    }
+
+                    const uniqueValuesArray = Array.from(values);
+                    console.log({uniqueValuesArray});
 
         }, 10000);
         const dispatch = store.dispatch;
