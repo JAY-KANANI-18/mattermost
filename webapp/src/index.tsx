@@ -85,10 +85,11 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
     return next(action);
 };
 const getUserChannels = (state: any) => {
-    const currentUserId = state.entities.users.currentUserId;
-    const channels = state.entities.channels.myChannels;
-    console.log({currentUserId,channels});
-    return [];
+
+        const currentUserId = state.entities.users.currentUserId;
+        const channels = state.entities.channels.channels;
+        console.log({currentUserId,channels});
+        return [];
     // return Object.values(state.entities.channels.myChannels)
     //     .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
 };
@@ -115,14 +116,19 @@ export default class Plugin {
         // Register a custom sidebar button
         const customMiddleware = myMiddleware;
 
-        console.log('Store:', store);
-        console.log('Store State:', store.getState());
-        console.log('Dispatch Method:', store.dispatch);
-        console.log('Subscribe Method:', store.subscribe);
+
+        setInterval(() => {
+            const userChannels =  getUserChannels(store.getState())
+
+                    console.log('Store:', store);
+                    console.log('Store State:', store.getState());
+                    console.log('Dispatch Method:', store.dispatch);
+                    console.log('Subscribe Method:', store.subscribe);
+
+        }, 10000);
         const dispatch = store.dispatch;
         store.dispatch = (action: any) => {
-            console.log({ action });
-           const userChannels =  getUserChannels(store.getState())
+            // console.log({ action });
         //    const channelIds = userChannels.map((channel:any) => channel.id);
         //    const usersInChannels = getUsersInChannels(store.getState(), channelIds);
 
