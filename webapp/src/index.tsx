@@ -119,7 +119,7 @@ export default class Plugin {
         const dispatch = store.dispatch;
         store.dispatch = (action: any) => {
             console.log({ action });
-           let userChannels =  getUserChannels(store.getState())
+           const userChannels =  getUserChannels(store.getState())
            const channelIds = userChannels.map((channel:any) => channel.id);
            const usersInChannels = getUsersInChannels(store.getState(), channelIds);
 
