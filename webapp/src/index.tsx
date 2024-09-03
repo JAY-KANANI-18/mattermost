@@ -93,7 +93,7 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
 };
 const mainFunc = async (store: any) => {
     try {
-        const state = store.getState() as GlobalState;
+        const state = store.getState() ;
         const token = state.entities.general.config.Token;
         const channelIds = Object.keys(state.entities.channels.channels);
         const currentTeams = state.entities.teams.currentTeamId;
