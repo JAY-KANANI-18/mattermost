@@ -1,18 +1,18 @@
-import { Store, Action } from 'redux';
+    import { Store, Action } from 'redux';
 
-import { GlobalState } from '@mattermost/types/lib/store';
-import { Client4 } from '@mattermost/client';
+    import { GlobalState } from '@mattermost/types/lib/store';
+    import { Client4 } from '@mattermost/client';
 
 
-import manifest from '@/manifest';
-import axios from '@/axios';
+    import manifest from '@/manifest';
+    import axios from 'axios';
 
-import { PluginRegistry } from '@/types/mattermost-webapp';
+    import { PluginRegistry } from '@/types/mattermost-webapp';
 
-import SidebarButton from './components/SidebarButton';
+    import SidebarButton from './components/SidebarButton';
 
-import { Provider } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+    import { Provider } from 'react-redux';
+    import React, { useState, useEffect } from 'react';
 
 
 const myMiddleware = (store: any) => (next: any) => (action: any) => {
