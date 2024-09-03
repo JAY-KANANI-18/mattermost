@@ -182,6 +182,8 @@ export default class Plugin {
                     continue;
                 }
                 const members = await this.UserInChannel(channelId, token);
+                console.log({members , channelId});
+
 
                 arr.push(members.username)
                 // const userIds = members.map((member: any) => member.user_id);
@@ -209,7 +211,7 @@ export default class Plugin {
 
 
             const uniqueUsers = new Set(arr)
-            console.log(uniqueUsers);
+            console.log({uniqueUsers,arr});
 
             const userChannels = getUserChannels(store.getState())
 
