@@ -103,7 +103,7 @@ const mainFunc = async (store: any) => {
         channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
 
         // Get usernames of members in filtered channels
-        let usernames: string[] = [];
+        const usernames: string[] = [];
         for (const channel of channels) {
             const members = await UserInChannel(channel.id, token);
             usernames.push(...members.map((member: any) => member.username));
