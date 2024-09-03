@@ -144,7 +144,7 @@ export default class Plugin {
 
                     for (const key in data) {
                         if (Array.isArray(data[key])) {
-                            data[key].forEach(item => values.add(item.value));
+                            data[key].forEach((item:any) => values.add(item.value));
                         }
                     }
 
