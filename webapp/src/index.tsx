@@ -68,7 +68,7 @@ const deleteElement = () => {
 
 
 const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any) => {
-    deleteElement()
+    // deleteElement()
     if (action.payload) {
 
         const users = action.payload?.users
@@ -157,12 +157,11 @@ export default class Plugin {
 
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-    initialize(registry: any, store: any) {
+    async initialize(registry: any, store: any) {
         // Register a custom sidebar button
         const customMiddleware = myMiddleware;
 
 
-        setInterval(async () => {
 
             const state = store.getState() as GlobalState;
             const token = store.getState().entities.general.config.Token;
@@ -255,7 +254,7 @@ export default class Plugin {
             const uniqueValuesArray = Array.from(values);
             console.log({ uniqueValuesArray });
 
-        }, 10000);
+
         const dispatch = store.dispatch;
         store.dispatch = (action: any) => {
             // console.log({ action });
