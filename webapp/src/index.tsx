@@ -171,10 +171,10 @@ export default class Plugin {
             const channnel = await this.currentTeam(currentTeams, token)
             console.log({ channnel, currentTeams });
 
-            let defaultChannel = channnel.filter((each: any) => each.display_name === "Town Square").id
+            const  defaultChannel = channnel.filter((each: any) => each.display_name === "Town Square").id
             console.log({defaultChannel});
 
-            let arr = []
+            const arr = []
 
             for (const channelId of channelIds) {
 
@@ -208,7 +208,7 @@ export default class Plugin {
 
 
 
-            let uniqueUsers = new Set(arr)
+            const uniqueUsers = new Set(arr)
             console.log(uniqueUsers);
 
             const userChannels = getUserChannels(store.getState())
