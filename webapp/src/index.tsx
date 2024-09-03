@@ -127,7 +127,7 @@ export default class Plugin {
 
 
     private async fetchChannelMembers(channelId: string, token: string) {
-        const response = await axios.get(`${"http://your-mattermost-server/api/v4"}/channels/${channelId}/members`, {
+        const response = await axios.get(`${"http://localhost:8065/api/v4"}/channels/${channelId}/members`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
