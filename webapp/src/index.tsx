@@ -31,25 +31,34 @@ const deleteElement = () => {
 
     // Iterate through each element to find the one with the desired text
     elements.forEach((element:any) => {
-        console.log("element11")
         // Check if the element contains the desired text
         if (element.textContent.includes('Not in Channel')) {
             // Get the parent of the target element
             const parent = element.parentNode;
 
-            // Remove all sibling elements after the target element
-            let nextSibling = element.nextSibling;
-            while (nextSibling) {
-                const toRemove = nextSibling;
-                nextSibling = nextSibling.nextSibling;
-                parent.removeChild(toRemove);
-            }
+            // Ensure parent exists before proceeding
+            if (parent) {
+                // Remove all sibling elements after the target element
+                let nextSibling = element.nextSibling;
+                while (nextSibling) {
+                    const toRemove = nextSibling;
+                    nextSibling = nextSibling.nextSibling;
 
-            // Optionally, remove the target element itself
-            parent.removeChild(element);
+                    // Ensure 'toRemove' is a valid node before attempting to remove
+                    if (parent.contains(toRemove)) {
+                        parent.removeChild(toRemove);
+                    }
+                }
+
+                // Optionally, remove the target element itself
+                if (parent.contains(element)) {
+                    parent.removeChild(element);
+                }
+            }
         }
     });
-}
+};
+
 
 
 const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any) => {
