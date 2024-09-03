@@ -5,7 +5,7 @@ import { Client4 } from '@mattermost/client';
 
 
 import manifest from '@/manifest';
-import axios from 'axios';
+import axios from '@/axios';
 
 import { PluginRegistry } from '@/types/mattermost-webapp';
 
