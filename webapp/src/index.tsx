@@ -1,18 +1,18 @@
-    import { Store, Action } from 'redux';
+import { Store, Action } from 'redux';
 
-    import { GlobalState } from '@mattermost/types/lib/store';
-    import { Client4 } from '@mattermost/client';
+import { GlobalState } from '@mattermost/types/lib/store';
+import { Client4 } from '@mattermost/client';
 
 
-    import manifest from '@/manifest';
-    import axios from 'axios';
+import manifest from '@/manifest';
+import axios from 'axios';
 
-    import { PluginRegistry } from '@/types/mattermost-webapp';
+import { PluginRegistry } from '@/types/mattermost-webapp';
 
-    import SidebarButton from './components/SidebarButton';
+import SidebarButton from './components/SidebarButton';
 
-    import { Provider } from 'react-redux';
-    import React, { useState, useEffect } from 'react';
+import { Provider } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 
 
 const myMiddleware = (store: any) => (next: any) => (action: any) => {
@@ -135,6 +135,26 @@ export default class Plugin {
         return response.data;
     }
 
+    private async currentTeam(teamId: any, token: any) {
+        const response = await axios.get(`http://localhost:8065/api/v4/users/me/teams/${teamId}/channels`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+
+    }
+    private async UserInChannel(channelId: any, token: any) {
+        const response = await axios.get(`http://localhost:8065/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
+`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+
+    }
+
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     initialize(registry: any, store: any) {
@@ -144,37 +164,39 @@ export default class Plugin {
 
         setInterval(async () => {
 
-
-
-
-
-
-
-
-
             const state = store.getState() as GlobalState;
-            const channelIds = Object.keys(state.entities.channels.channels); // Get all channel IDs or specific ones
             const token = store.getState().entities.general.config.Token;
+            const channelIds = Object.keys(state.entities.channels.channels);
+            const currentTeams = store.getState().entities.teams.currentTeamId;
+            const channnel = await this.currentTeam(currentTeams, token)
+            console.log({ channnel, currentTeams });
+
+            let defaultChannel = channnel.filter((each: any) => each.display_name === "Town Square").id
+            console.log({defaultChannel});
+
+            let arr = []
+
             for (const channelId of channelIds) {
 
-                    // Fetch members of the channel
-                    const members = await this.fetchChannelMembers(channelId,token);
-                    const userIds = members.map((member:any) => member.user_id);
-console.log({members , userIds});
-
-                    // // Fetch user profiles
-
-                    // console.log('Channel ID:', channelId);
-                    // console.log('Profiles In Channel:', profiles);
-
-                    // // Process profiles as needed
-                    // const values = new Set<string>();
-                    // profiles.forEach((profile:any) => values.add(profile.id));
-
-                    // const uniqueValuesArray = Array.from(values);
-                    // console.log('Unique Values:', uniqueValuesArray);
-
+                if (defaultChannel) {
+                    continue;
                 }
+                const members = await this.UserInChannel(channelId, token);
+
+                arr.push(members.username)
+                // const userIds = members.map((member: any) => member.user_id);
+
+                // console.log('Channel ID:', channelId);
+                // console.log('Profiles In Channel:', profiles);
+
+                // // Process profiles as needed
+                // const values = new Set<string>();
+                // profiles.forEach((profile:any) => values.add(profile.id));
+
+                // const uniqueValuesArray = Array.from(values);
+                // console.log('Unique Values:', uniqueValuesArray);
+
+            }
 
 
 
@@ -186,6 +208,8 @@ console.log({members , userIds});
 
 
 
+            let uniqueUsers = new Set(arr)
+            console.log(uniqueUsers);
 
             const userChannels = getUserChannels(store.getState())
 
