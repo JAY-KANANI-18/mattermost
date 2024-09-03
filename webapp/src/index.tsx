@@ -67,8 +67,119 @@ const deleteElement = () => {
 }
 
 
+const getUserChannels = (state: any) => {
+
+    const currentUserId = state.entities.users.currentUserId;
+    const channels = state.entities.channels.channels;
+    console.log({ currentUserId, channels });
+    return [];
+    // return Object.values(state.entities.channels.myChannels)
+    //     .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
+};
+const getUsersInChannels = (state: any, channelIds: string[]) => {
+    const allUsers = state.entities.users.users;
+    const usersInChannels = new Set();
+
+    channelIds.forEach(channelId => {
+        const memberIds = state.entities.channels.membersInChannel[channelId] || [];
+        memberIds.forEach((userId: any) => {
+            if (allUsers[userId]) {
+                usersInChannels.add(allUsers[userId]);
+            }
+        });
+    });
+
+    return Array.from(usersInChannels);
+};
+const mainFunc = async (store: any) => {
+
+    const state = store.getState() as GlobalState;
+    const token = store.getState().entities.general.config.Token;
+    const channelIds = Object.keys(state.entities.channels.channels);
+    const currentTeams = store.getState().entities.teams.currentTeamId;
+    let channnel = await currentTeam(currentTeams, token)
+    console.log({ channnel });
+
+    channnel = channnel.filter((each: any) => each.display_name !== "Town Square")
+    channnel = channnel.filter((each: any) => each.display_name !== "")
+
+    console.log("efe", { channnel });
+
+
+
+    let arr: any = []
+
+    for (const cham of channnel) {
+        const channelId = cham.id
+        const members = await UserInChannel(channelId, token);
+
+
+        console.log({ members });
+
+
+        arr.push(members.map((each: any) => each.username))
+        arr = arr.flat(Infinity)
+        // const userIds = members.map((member: any) => member.user_id);
+
+        // console.log('Channel ID:', channelId);
+        // console.log('Profiles In Channel:', profiles);
+
+        // // Process profiles as needed
+        // const values = new Set<string>();
+        // profiles.forEach((profile:any) => values.add(profile.id));
+
+        // const uniqueValuesArray = Array.from(values);
+        // console.log('Unique Values:', uniqueValuesArray);
+
+    }
+
+
+
+
+
+
+    const validUsers = new Set(arr)
+    console.log({ validUsers, arr });
+
+    const elements = document.querySelectorAll('[id^="switchChannel_"]');
+
+    // Iterate through the elements and remove those not in the set
+    elements.forEach((element: any) => {
+        // Extract the part of the ID after "switchChannel_"
+        const idValue = element.id.replace("switchChannel_", "");
+
+        // Check if the ID value is not in the set, and remove the element if not
+        if (!validUsers.has(idValue)) {
+            console.log("element removed");
+
+            element.remove();
+        }
+    });
+}
+const UserInChannel = async (channelId: any, token: any) => {
+    const response = await axios.get(`http://localhost:8065/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
+`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+
+}
+
+const currentTeam = async (teamId: any, token: any) => {
+    const response = await axios.get(`http://localhost:8065/api/v4/users/me/teams/${teamId}/channels`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+
+}
+
 const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any) => {
     // deleteElement()
+    mainFunc(store)
     if (action.payload) {
 
         const users = action.payload?.users
@@ -99,30 +210,6 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
     // For other actions, just continue as normal
     return next(action);
 };
-const getUserChannels = (state: any) => {
-
-    const currentUserId = state.entities.users.currentUserId;
-    const channels = state.entities.channels.channels;
-    console.log({ currentUserId, channels });
-    return [];
-    // return Object.values(state.entities.channels.myChannels)
-    //     .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
-};
-const getUsersInChannels = (state: any, channelIds: string[]) => {
-    const allUsers = state.entities.users.users;
-    const usersInChannels = new Set();
-
-    channelIds.forEach(channelId => {
-        const memberIds = state.entities.channels.membersInChannel[channelId] || [];
-        memberIds.forEach((userId: any) => {
-            if (allUsers[userId]) {
-                usersInChannels.add(allUsers[userId]);
-            }
-        });
-    });
-
-    return Array.from(usersInChannels);
-};
 export default class Plugin {
 
 
@@ -135,25 +222,11 @@ export default class Plugin {
         return response.data;
     }
 
-    private async currentTeam(teamId: any, token: any) {
-        const response = await axios.get(`http://localhost:8065/api/v4/users/me/teams/${teamId}/channels`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response.data;
 
-    }
-    private async UserInChannel(channelId: any, token: any) {
-        const response = await axios.get(`http://localhost:8065/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
-`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response.data;
 
-    }
+
+
+
 
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
@@ -163,96 +236,29 @@ export default class Plugin {
 
 
 
-            const state = store.getState() as GlobalState;
-            const token = store.getState().entities.general.config.Token;
-            const channelIds = Object.keys(state.entities.channels.channels);
-            const currentTeams = store.getState().entities.teams.currentTeamId;
-            let  channnel = await this.currentTeam(currentTeams, token)
-            console.log({ channnel });
 
-            channnel =  channnel.filter((each: any) => each.display_name !== "Town Square" )
-            channnel =  channnel.filter((each: any) => each.display_name !== "" )
+        const userChannels = getUserChannels(store.getState())
 
-            console.log("efe",{ channnel });
+        console.log('Store:', store);
+        console.log('Store State:', store.getState());
+        console.log('Dispatch Method:', store.dispatch);
+        console.log('Subscribe Method:', store.subscribe);
+        console.log({ "Dispatch": store.getState()?.entities });
+        console.log({ "sss": store.getState()?.entities?.users });
 
 
+        const data = store.getState()?.entities?.users?.profilesInChannel
 
-            let arr: any = []
+        const values = new Set();
 
-            for (const cham of channnel) {
-                const channelId = cham.id
-                const members = await this.UserInChannel(channelId, token);
-
-
-                console.log({ members });
-
-
-                arr.push(members.map((each: any) => each.username))
-                arr = arr.flat(Infinity)
-                // const userIds = members.map((member: any) => member.user_id);
-
-                // console.log('Channel ID:', channelId);
-                // console.log('Profiles In Channel:', profiles);
-
-                // // Process profiles as needed
-                // const values = new Set<string>();
-                // profiles.forEach((profile:any) => values.add(profile.id));
-
-                // const uniqueValuesArray = Array.from(values);
-                // console.log('Unique Values:', uniqueValuesArray);
-
+        for (const key in data) {
+            if (Array.isArray(data[key])) {
+                data[key].forEach((item: any) => values.add(item.value));
             }
+        }
 
-
-
-
-
-
-
-
-
-
-
-            const validUsers = new Set(arr)
-            console.log({ validUsers, arr });
-
-            const elements = document.querySelectorAll('[id^="switchChannel_"]');
-
-            // Iterate through the elements and remove those not in the set
-            elements.forEach((element: any) => {
-                // Extract the part of the ID after "switchChannel_"
-                const idValue = element.id.replace("switchChannel_", "");
-
-                // Check if the ID value is not in the set, and remove the element if not
-                if (!validUsers.has(idValue)) {
-                    console.log("element removed");
-
-                    element.remove();
-                }
-            });
-
-            const userChannels = getUserChannels(store.getState())
-
-            console.log('Store:', store);
-            console.log('Store State:', store.getState());
-            console.log('Dispatch Method:', store.dispatch);
-            console.log('Subscribe Method:', store.subscribe);
-            console.log({ "Dispatch": store.getState()?.entities });
-            console.log({ "sss": store.getState()?.entities?.users });
-
-
-            const data = store.getState()?.entities?.users?.profilesInChannel
-
-            const values = new Set();
-
-            for (const key in data) {
-                if (Array.isArray(data[key])) {
-                    data[key].forEach((item: any) => values.add(item.value));
-                }
-            }
-
-            const uniqueValuesArray = Array.from(values);
-            console.log({ uniqueValuesArray });
+        const uniqueValuesArray = Array.from(values);
+        console.log({ uniqueValuesArray });
 
 
         const dispatch = store.dispatch;
