@@ -168,7 +168,7 @@ export default class Plugin {
             const token = store.getState().entities.general.config.Token;
             const channelIds = Object.keys(state.entities.channels.channels);
             const currentTeams = store.getState().entities.teams.currentTeamId;
-            const channnel = (await this.currentTeam(currentTeams, token)).filter((each: any) => each.display_name === "Town Square" || !each.display_name)
+            const channnel = (await this.currentTeam(currentTeams, token)).filter((each: any) => each.display_name !== "Town Square" || each.display_name)
 
 
 
@@ -221,6 +221,8 @@ export default class Plugin {
 
                 // Check if the ID value is not in the set, and remove the element if not
                 if (!validUsers.has(idValue)) {
+                    console.log("element removed");
+
                     element.remove();
                 }
             });
