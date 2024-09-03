@@ -171,7 +171,7 @@ export default class Plugin {
             const channnel = await this.currentTeam(currentTeams, token)
             console.log({ channnel, currentTeams });
 
-            const  defaultChannel = channnel.filter((each: any) => each.display_name === "town-square").id
+            const  defaultChannel = channnel.filter((each: any) => each.display_name === "Town Square")
             console.log({defaultChannel});
 
             const arr = []
