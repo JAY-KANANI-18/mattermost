@@ -123,6 +123,8 @@ const mainFunc = async (store: any) => {
             elements.forEach((element: any) => {
                 const idValue = element.id.replace("switchChannel_", "");
                 const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
+                console.log({dataValue});
+
                 if (!validUsers.has(idValue) || !validUsers.has(dataValue)) {
 
                     if (element ) {
