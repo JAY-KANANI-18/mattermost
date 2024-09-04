@@ -30,15 +30,7 @@ const SidebarButton: React.FC = () => {
     const isMember = members.some((member: Member) => member.user_id === currentUser.id);
 
     return (
-        <div>
-            <button
-                onClick={() => {
-                    console.log('Send direct message')
-                }}
-            >
-                Send Direct Message
-            </button>
-        </div>
+    <></>
     );
 };
 

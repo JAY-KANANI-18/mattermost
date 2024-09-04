@@ -309,7 +309,7 @@ export default class Plugin {
             if (ee) ee.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
-        registry.registerLeftSidebarHeaderComponent(SidebarButton);
+        // registry.registerLeftSidebarHeaderComponent(SidebarButton);
     }
 
     uninitialize() {
