@@ -157,12 +157,12 @@ const SidebarButton: React.FC = () => {
             console.error('Error in mainFunc:', error);
         }
     };
-    let RestrictedUsersList:any = getRestrictedUsersList(state)
+    let RestrictedUsersList:any =  []
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
         mainFunc(state,RestrictedUsersList)
-    }, [state.entities.search])
+    }, [state])
 
 
     useEffect(() => {
