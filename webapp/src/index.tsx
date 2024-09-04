@@ -29,7 +29,7 @@ const myMiddleware = (store: any) => (next: any) => (action: any) => {
     return next(action);
 };
 // Middleware to modify API responses
-const hideSuggetion = (username:any) => {
+const hideSuggetion = (username: any) => {
 
     const element = document.querySelector(`[data-testid^="mentionSuggestion_${username}"]`);
 
@@ -93,7 +93,7 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
 };
 const mainFunc = async (store: any) => {
     try {
-        const state = store.getState() ;
+        const state = store.getState();
         const token = state.entities.general.config.Token;
         const channelIds = Object.keys(state.entities.channels.channels);
         const currentTeams = state.entities.teams.currentTeamId;
@@ -102,7 +102,7 @@ const mainFunc = async (store: any) => {
         let channels = await currentTeam(currentTeams, token);
         const channel1 = channels
         channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
-        console.log({channel1,channels});
+        console.log({ channel1, channels });
 
         // Get usernames of members in filtered channels
         const usernames: string[] = [];
@@ -116,34 +116,34 @@ const mainFunc = async (store: any) => {
             inValidUsernames.push(...members.map((member: any) => member.username));
         }
 
-        const validUsers:any = new Set(usernames);
-        let inValidUsers:any = new Set(inValidUsernames);
+        let inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
+        const validUsers: any = new Set(usernames);
+        inValidUsers = new Set(inValidUsernames);
 
-        inValidUsers = inValidUsers.filter((element:any) => !validUsers.includes(element));
+        console.log({ inValidUsernames, inValidUsers, validUsers });
 
-        console.log({inValidUsernames , inValidUsers , validUsers});
 
 
 
         // Remove elements not in the validUsers set
-        const elements1:any = document.querySelectorAll('[id^="switchChannel_"]');
-        const elements2:any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
+        const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
+        const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
-        console.log({validUsers, elements1 , elements2});
-        const elements = [...elements1,...elements2]
+        console.log({ validUsers, elements1, elements2 });
+        const elements = [...elements1, ...elements2]
 
-        if(elements.length >0){
+        if (elements.length > 0) {
 
             elements.forEach((element: any) => {
                 const idValue = element.id.replace("switchChannel_", "");
                 const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                console.log({dataValue});
-                console.log(validUsers.has(dataValue));
+                console.log({ dataValue });
+                console.log(inValidUsers.has(dataValue));
 
 
-                if (( idValue && !validUsers.has(idValue)) || (dataValue && !validUsers.has(dataValue))) {
+                if ((idValue && inValidUsers.has(idValue)) || (dataValue && inValidUsers.has(dataValue))) {
 
-                    if (element ) {
+                    if (element) {
                         try {
                             element.style.display = 'none';
 
@@ -160,7 +160,7 @@ const mainFunc = async (store: any) => {
         console.error('Error in mainFunc:', error);
     }
 };
-const observeDOMChanges = (store:any) => {
+const observeDOMChanges = (store: any) => {
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             if (mutation.type === 'childList') {
