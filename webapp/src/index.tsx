@@ -100,16 +100,28 @@ const mainFunc = async (store: any) => {
 
         // Fetch channels
         let channels = await currentTeam(currentTeams, token);
+        let channel1 = channels
         channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
+        console.log({channel1,channels});
 
         // Get usernames of members in filtered channels
         const usernames: string[] = [];
+        const inValidUsernames: string[] = [];
         for (const channel of channels) {
             const members = await UserInChannel(channel.id, token);
             usernames.push(...members.map((member: any) => member.username));
         }
+        for (const channel of channel1) {
+            const members = await UserInChannel(channel.id, token);
+            inValidUsernames.push(...members.map((member: any) => member.username));
+        }
 
-        const validUsers = new Set(usernames);
+        const validUsers:any = new Set(usernames);
+        let inValidUsers:any = new Set(inValidUsernames);
+
+        inValidUsers = inValidUsers.filter((element:any) => !validUsers.includes(element));
+
+        console.log({inValidUsernames , inValidUsers , validUsers});
 
 
 
