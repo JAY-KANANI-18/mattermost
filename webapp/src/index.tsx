@@ -118,8 +118,8 @@ const mainFunc = async (store: any) => {
 
         console.log({ inValidUsernames, usernames });
         let inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
-        const validUsers: any = new Set(usernames);
-        inValidUsers = new Set(inValidUsernames);
+        // const validUsers: any = new Set(usernames);
+        // inValidUsers = new Set(inValidUsernames);
         console.log({ inValidUsernames, inValidUsers, validUsers });
 
 
@@ -130,7 +130,7 @@ const mainFunc = async (store: any) => {
         const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
         const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
-        console.log({ validUsers, elements1, elements2 });
+        console.log({ usernames, elements1, elements2 });
         const elements = [...elements1, ...elements2]
 
         if (elements.length > 0) {
