@@ -29,41 +29,41 @@ const myMiddleware = (store: any) => (next: any) => (action: any) => {
     return next(action);
 };
 // Middleware to modify API responses
-const deleteElement = () => {
+const hideSuggetion = (username:any) => {
 
-    // const element = document.querySelector('[data-testid="mentionSuggestion_admin616"]');
+    const element = document.querySelector(`[data-testid^="mentionSuggestion_${username}"]`);
 
-    // // Check if the element exists
-    // if (element) {
-    //     // Remove the element from the DOM
-    //     element.remove();
-    // }
-
-
+    // Check if the element exists
+    if (element) {
+        // Remove the element from the DOM
+        element.remove();
+    }
 
 
-    const elements = document.querySelectorAll('.suggestion-list__divider');
 
-    // Iterate through each element to find the one with the desired text
-    elements.forEach((element: any) => {
-        console.log("element11")
-        // Check if the element contains the desired text
-        if (element.textContent.includes('Not in Channel')) {
-            // Get the parent of the target element
-            const parent = element.parentNode;
 
-            // Remove all sibling elements after the target element
-            let nextSibling = element.nextSibling;
-            while (nextSibling) {
-                const toRemove = nextSibling;
-                nextSibling = nextSibling.nextSibling;
-                parent.removeChild(toRemove);
-            }
+    // const elements = document.querySelectorAll('.suggestion-list__divider');
 
-            // Optionally, remove the target element itself
-            parent.removeChild(element);
-        }
-    });
+    // // Iterate through each element to find the one with the desired text
+    // elements.forEach((element: any) => {
+    //     console.log("element11")
+    //     // Check if the element contains the desired text
+    //     if (element.textContent.includes('Not in Channel')) {
+    //         // Get the parent of the target element
+    //         const parent = element.parentNode;
+
+    //         // Remove all sibling elements after the target element
+    //         let nextSibling = element.nextSibling;
+    //         while (nextSibling) {
+    //             const toRemove = nextSibling;
+    //             nextSibling = nextSibling.nextSibling;
+    //             parent.removeChild(toRemove);
+    //         }
+
+    //         // Optionally, remove the target element itself
+    //         parent.removeChild(element);
+    //     }
+    // });
 }
 
 
@@ -112,8 +112,12 @@ const mainFunc = async (store: any) => {
         const validUsers = new Set(usernames);
 
         // Remove elements not in the validUsers set
-        const elements = document.querySelectorAll('[id^="switchChannel_"]');
-        console.log({elements});
+        const elements1:any = document.querySelectorAll('[id^="switchChannel_"]');
+        const elements2:any = document.querySelector(`[data-testid^="mentionSuggestion_"]`);
+
+        const elements = [...elements1,...elements2]
+
+        console.log({elements , elements1 , elements2});
         if(elements.length >0){
 
             elements.forEach((element: any) => {
