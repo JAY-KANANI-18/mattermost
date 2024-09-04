@@ -136,7 +136,6 @@ const SidebarButton: React.FC = () => {
                     const idValue = element.id.replace("switchChannel_", "");
                     const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
                     console.log({ dataValue });
-                    console.log(RestrictedUsersList.includes(dataValue));
 
 
                     if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
@@ -158,16 +157,19 @@ const SidebarButton: React.FC = () => {
             console.error('Error in mainFunc:', error);
         }
     };
-    let RestrictedUsersList = getRestrictedUsersList(state)
+    let RestrictedUsersList:any = getRestrictedUsersList(state)
+     RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
         mainFunc(state,RestrictedUsersList)
-    }, [state])
+    }, [state.search])
 
 
     useEffect(() => {
         // This effect will run whenever `someState` changes
         RestrictedUsersList = getRestrictedUsersList(state)
+        RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
+
         console.log('State has changed:', someState);
         console.log("wd", { RestrictedUsersList });
 
