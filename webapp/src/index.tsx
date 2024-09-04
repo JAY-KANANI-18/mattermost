@@ -117,10 +117,10 @@ const mainFunc = async (store: any) => {
         }
 
         console.log({ inValidUsernames, usernames });
-        let inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
+        const inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
         // const validUsers: any = new Set(usernames);
         // inValidUsers = new Set(inValidUsernames);
-        console.log({ inValidUsernames, inValidUsers, validUsers });
+        console.log({ inValidUsernames, inValidUsers });
 
 
 
