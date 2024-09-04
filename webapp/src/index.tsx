@@ -120,7 +120,7 @@ const mainFunc = async (store: any) => {
                 const idValue = element.id.replace("switchChannel_", "");
                 if (!validUsers.has(idValue)) {
 
-                    if (element && element.parentNode) {
+                    if (element ) {
                         try {
                             element.style.display = 'none';
 
