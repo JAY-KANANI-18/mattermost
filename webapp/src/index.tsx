@@ -100,7 +100,7 @@ const mainFunc = async (store: any) => {
 
         // Fetch channels
         let channels = await currentTeam(currentTeams, token);
-        const channel1 = channels
+        const channel1 = [...channels]
         channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
         console.log({ channel1, channels });
 
@@ -116,11 +116,12 @@ const mainFunc = async (store: any) => {
             inValidUsernames.push(...members.map((member: any) => member.username));
         }
 
+        console.log({ inValidUsernames, usernames });
         let inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
         const validUsers: any = new Set(usernames);
         inValidUsers = new Set(inValidUsernames);
-
         console.log({ inValidUsernames, inValidUsers, validUsers });
+
 
 
 
