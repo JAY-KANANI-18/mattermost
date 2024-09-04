@@ -187,7 +187,8 @@ const UserInChannel = async (channelId: any, token: any) => {
 }
 
 const currentTeam = async (teamId: any, token: any) => {
-    const response = await axios.get(`${URL}/api/v4/users/me/teams/${teamId}/channels`, {
+
+    const response = await axios.get(`${URL}/api/v4/users/me/teams/${teamId}/channels?include_deleted=true`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -285,16 +286,16 @@ export default class Plugin {
             if (typeof action === 'function') {
 
                 const wrappedAction = (...args: any[]) => {
-                    console.log('Wrapped function arguments:', args);
+                    // console.log('Wrapped function arguments:', args);
 
                     // Call the original thunk function
                     return action(...args);
                 };
                 await wrappedAction(store.dispatch, store.getState);
 
-                console.log('Anonymous function dispatched:', action.toString());
+                // console.log('Anonymous function dispatched:', action.toString());
             } else {
-                console.log('Action dispatched:', {action});
+                // console.log('Action dispatched:', {action});
             }            //    const channelIds = userChannels.map((channel:any) => channel.id);
             //    const usersInChannels = getUsersInChannels(store.getState(), channelIds);
 
