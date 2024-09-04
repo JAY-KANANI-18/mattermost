@@ -329,17 +329,17 @@ export default class Plugin {
 
 
 
-        const data = store.getState()?.entities?.users?.profilesInChannel
+        // const data = store.getState()?.entities?.users?.profilesInChannel
 
-        const values = new Set();
+        // const values = new Set();
 
-        for (const key in data) {
-            if (Array.isArray(data[key])) {
-                data[key].forEach((item: any) => values.add(item.value));
-            }
-        }
+        // for (const key in data) {
+        //     if (Array.isArray(data[key])) {
+        //         data[key].forEach((item: any) => values.add(item.value));
+        //     }
+        // }
 
-        const uniqueValuesArray = Array.from(values);
+        // const uniqueValuesArray = Array.from(values);
 
 
         const dispatch = store.dispatch;
@@ -354,7 +354,7 @@ export default class Plugin {
             if (ee) ee.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
-        // registry.registerLeftSidebarHeaderComponent(SidebarButton);
+        registry.registerLeftSidebarHeaderComponent(SidebarButton);
     }
 
     uninitialize() {
