@@ -128,8 +128,7 @@ const mainFunc = async (store: any) => {
 
         // Remove elements not in the validUsers set
         const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
-        const timesele: any = document.querySelector('#sidebarItem_town-square');
-        if (timesele) timesele.style.display = 'none';
+
         const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
         console.log({ usernames, elements1, elements2 });
@@ -292,6 +291,8 @@ export default class Plugin {
 
 
             // Apply your middleware to each dispatch
+            const timesele: any = document.querySelector('#sidebarItem_town-square');
+            if (timesele) timesele.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         registry.registerLeftSidebarHeaderComponent(SidebarButton);
