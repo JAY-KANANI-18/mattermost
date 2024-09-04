@@ -132,7 +132,7 @@ const mainFunc = async (store: any) => {
         const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
         console.log({ usernames, elements1, elements2 });
-        const elements = [...elements1, ...elements2, ... timesele]
+        const elements = [...elements1, ...elements2, timesele]
 
         if (elements.length > 0) {
 
