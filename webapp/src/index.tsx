@@ -129,79 +129,79 @@ const getRestrictedUsersList = async (store: any) => {
 
 
 
-const mainFunc = async (store: any, RestrictedUsersList: any) => {
-    try {
-        // const state = store.getState();
-        // console.log({ state });
-        // const token = state.entities.general.config.Token;
-        // let allUsers = await getAllUsers(token)
+    // const mainFunc = async (store: any, RestrictedUsersList: any) => {
+    //     try {
+    //         // const state = store.getState();
+    //         // console.log({ state });
+    //         // const token = state.entities.general.config.Token;
+    //         // let allUsers = await getAllUsers(token)
 
-        // const channelIds = Object.keys(state.entities.channels.channels);
-        // const currentTeams = state.entities.teams.currentTeamId;
+    //         // const channelIds = Object.keys(state.entities.channels.channels);
+    //         // const currentTeams = state.entities.teams.currentTeamId;
 
-        // // Fetch channels
-        // let channels = await currentTeam(currentTeams, token);
-        // const channel1 = [...channels]
-        // channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
-        // // console.log({ channel1, channels });
+    //         // // Fetch channels
+    //         // let channels = await currentTeam(currentTeams, token);
+    //         // const channel1 = [...channels]
+    //         // channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
+    //         // // console.log({ channel1, channels });
 
-        // // Get usernames of members in filtered channels
-        // const usernames: string[] = [];
-        // const inValidUsernames: string[] = [];
-        // for (const channel of channels) {
-        //     const members = await UserInChannel(channel.id, token);
-        //     usernames.push(...members.map((member: any) => member.username));
-        // }
-        // for (const channel of channel1) {
-        //     const members = await UserInChannel(channel.id, token);
-        //     inValidUsernames.push(...members.map((member: any) => member.username));
-        // }
+    //         // // Get usernames of members in filtered channels
+    //         // const usernames: string[] = [];
+    //         // const inValidUsernames: string[] = [];
+    //         // for (const channel of channels) {
+    //         //     const members = await UserInChannel(channel.id, token);
+    //         //     usernames.push(...members.map((member: any) => member.username));
+    //         // }
+    //         // for (const channel of channel1) {
+    //         //     const members = await UserInChannel(channel.id, token);
+    //         //     inValidUsernames.push(...members.map((member: any) => member.username));
+    //         // }
 
-        // // console.log({ inValidUsernames, usernames });
-        // const inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
+    //         // // console.log({ inValidUsernames, usernames });
+    //         // const inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
 
-        // // console.log({ inValidUsernames, inValidUsers });
-
-
+    //         // // console.log({ inValidUsernames, inValidUsers });
 
 
 
-        // // Remove elements not in the validUsers set
-        const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
-
-        const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
-
-        // console.log({ usernames, elements1, elements2 });
-        const elements = [...elements1, ...elements2]
-
-        if (elements.length > 0) {
-
-            elements.forEach((element: any) => {
-                const idValue = element.id.replace("switchChannel_", "");
-                const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                console.log({ dataValue });
-                console.log(RestrictedUsersList.includes(dataValue));
 
 
-                if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
+    //         // // Remove elements not in the validUsers set
+    //         const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
 
-                    if (element) {
-                        try {
-                            element.style.display = 'none';
+    //         const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
-                            // element.parentNode.removeChild(element);
-                        } catch (error) {
-                            // console.error('Error safely removing element:', error);
-                        }
-                    }
+    //         // console.log({ usernames, elements1, elements2 });
+    //         const elements = [...elements1, ...elements2]
 
-                }
-            });
-        }
-    } catch (error) {
-        console.error('Error in mainFunc:', error);
-    }
-};
+    //         if (elements.length > 0) {
+
+    //             elements.forEach((element: any) => {
+    //                 const idValue = element.id.replace("switchChannel_", "");
+    //                 const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
+    //                 console.log({ dataValue });
+    //                 console.log(RestrictedUsersList.includes(dataValue));
+
+
+    //                 if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
+
+    //                     if (element) {
+    //                         try {
+    //                             element.style.display = 'none';
+
+    //                             // element.parentNode.removeChild(element);
+    //                         } catch (error) {
+    //                             // console.error('Error safely removing element:', error);
+    //                         }
+    //                     }
+
+    //                 }
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.error('Error in mainFunc:', error);
+    //     }
+    // };
 // const observeDOMChanges = (store: any) => {
 //     const observer = new MutationObserver((mutations) => {
 //         mutations.forEach((mutation) => {
@@ -324,8 +324,8 @@ export default class Plugin {
         console.log('Subscribe Method:', store.subscribe);
         console.log({ "Dispatch": store.getState()?.entities });
         console.log({ "sss": store.getState()?.entities?.users });
-        const RestrictedUsersList = await getRestrictedUsersList(store)
-        console.log({ RestrictedUsersList });
+        // const RestrictedUsersList = await getRestrictedUsersList(store)
+        // console.log({ RestrictedUsersList });
 
 
 
@@ -346,7 +346,7 @@ export default class Plugin {
         store.dispatch = async (action: any) => {
 
 
-            mainFunc(store, RestrictedUsersList)
+            // mainFunc(store, RestrictedUsersList)
 
             const timesele: any = document.querySelector('#sidebarItem_town-square');
             if (timesele) timesele.parentNode.style.display = 'none';
