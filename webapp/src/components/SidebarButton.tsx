@@ -167,11 +167,16 @@ const SidebarButton: React.FC = () => {
 
     useEffect(() => {
         // This effect will run whenever `someState` changes
-        RestrictedUsersList = getRestrictedUsersList(state)
-        // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
-        console.log('State has changed:', someState);
-        console.log("wd", { RestrictedUsersList });
+        async function getp(){
+
+            RestrictedUsersList = await getRestrictedUsersList(state)
+            // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
+
+            console.log('State has changed:', someState);
+            console.log("wd", { RestrictedUsersList });
+        }
+        getp()
 
 
         // Perform any side effects here, such as API calls or DOM manipulation
