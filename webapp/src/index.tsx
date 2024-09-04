@@ -291,8 +291,8 @@ export default class Plugin {
 
 
             // Apply your middleware to each dispatch
-            const timesele: any = document.querySelector('#sidebarItem_town-square');
-            if (timesele) timesele.remove() // = 'none';
+                    const timesele: any = document.querySelector('#sidebarItem_town-square');
+        if (timesele) timesele.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         registry.registerLeftSidebarHeaderComponent(SidebarButton);
