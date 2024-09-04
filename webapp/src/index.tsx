@@ -92,12 +92,36 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
 
     return Array.from(usersInChannels);
 };
-const mainFunc = async (store: any) => {
-    try {
-        const state = store.getState();
-        console.log({state});
 
+
+const getRestrictedUsersList = async (store: any) => {
+    const state = store.getState();
+    console.log({ state });
+    const token = state.entities.general.config.Token;
+    let allUsers = await getAllUsers(token)
+    const currentTeams = state.entities.teams.currentTeamId;
+    let channels = await currentTeam(currentTeams, token);
+    channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
+    const usernames: string[] = [];
+
+    for (const channel of channels) {
+        const members = await UserInChannel(channel.id, token);
+        usernames.push(...members.map((member: any) => member.username));
+    }
+    return allUsers.filter((element: any) => !usernames.includes(element.username));
+
+};
+
+
+
+
+const mainFunc = async (store: any, RestrictedUsersList: any) => {
+    try {
+        // const state = store.getState();
+        // console.log({ state });
         // const token = state.entities.general.config.Token;
+        // let allUsers = await getAllUsers(token)
+
         // const channelIds = Object.keys(state.entities.channels.channels);
         // const currentTeams = state.entities.teams.currentTeamId;
 
@@ -129,37 +153,37 @@ const mainFunc = async (store: any) => {
 
 
         // // Remove elements not in the validUsers set
-        // const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
+        const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
 
-        // const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
+        const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
-        // // console.log({ usernames, elements1, elements2 });
-        // const elements = [...elements1, ...elements2]
+        // console.log({ usernames, elements1, elements2 });
+        const elements = [...elements1, ...elements2]
 
-        // if (elements.length > 0) {
+        if (elements.length > 0) {
 
-        //     elements.forEach((element: any) => {
-        //         const idValue = element.id.replace("switchChannel_", "");
-        //         const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-        //         // console.log({ dataValue });
-        //         // console.log(inValidUsers.includes(dataValue));
+            elements.forEach((element: any) => {
+                const idValue = element.id.replace("switchChannel_", "");
+                const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
+                console.log({ dataValue });
+                console.log(RestrictedUsersList.includes(dataValue));
 
 
-        //         if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))) {
+                if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
 
-        //             if (element) {
-        //                 try {
-        //                     element.style.display = 'none';
+                    if (element) {
+                        try {
+                            element.style.display = 'none';
 
-        //                     // element.parentNode.removeChild(element);
-        //                 } catch (error) {
-        //                     // console.error('Error safely removing element:', error);
-        //                 }
-        //             }
+                            // element.parentNode.removeChild(element);
+                        } catch (error) {
+                            // console.error('Error safely removing element:', error);
+                        }
+                    }
 
-        //         }
-        //     });
-        // }
+                }
+            });
+        }
     } catch (error) {
         console.error('Error in mainFunc:', error);
     }
@@ -187,6 +211,25 @@ const UserInChannel = async (channelId: any, token: any) => {
     return response.data;
 
 }
+const getUsersofChannels = async (channelIds: any, token: any) => {
+    const response = await axios.post(`${URL}/api/v4/users/group_channels`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+
+}
+
+let getAllUsers = async (token: any): Promise<any> => {
+    const response = await axios.get(`${URL}/api/v4/users`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+
+}
 
 const currentTeam = async (teamId: any, token: any) => {
 
@@ -201,7 +244,6 @@ const currentTeam = async (teamId: any, token: any) => {
 
 const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any) => {
     // deleteElement()
-    mainFunc(store)
     if (action.payload) {
 
         const users = action.payload?.users
@@ -268,6 +310,9 @@ export default class Plugin {
         console.log('Subscribe Method:', store.subscribe);
         console.log({ "Dispatch": store.getState()?.entities });
         console.log({ "sss": store.getState()?.entities?.users });
+        let RestrictedUsersList = getRestrictedUsersList(store)
+        console.log({RestrictedUsersList});
+
 
 
         const data = store.getState()?.entities?.users?.profilesInChannel
@@ -284,27 +329,11 @@ export default class Plugin {
 
 
         const dispatch = store.dispatch;
-        store.dispatch =async (action: any) => {
-            if (typeof action === 'function') {
-
-                const wrappedAction = (...args: any[]) => {
-                    // console.log('Wrapped function arguments:', args);
-
-                    // Call the original thunk function
-                    return action(...args);
-                };
-                await wrappedAction(store.dispatch, store.getState);
-
-                // console.log('Anonymous function dispatched:', action.toString());
-            } else {
-                // console.log('Action dispatched:', {action});
-            }            //    const channelIds = userChannels.map((channel:any) => channel.id);
-            //    const usersInChannels = getUsersInChannels(store.getState(), channelIds);
-
-            //    console.log({userChannels,channelIds,usersInChannels});
+        store.dispatch = async (action: any) => {
 
 
-            // Apply your middleware to each dispatch
+            mainFunc(store, RestrictedUsersList)
+
             const timesele: any = document.querySelector('#sidebarItem_town-square');
             if (timesele) timesele.parentNode.style.display = 'none';
             const ee: any = document.querySelector('#switchChannel_town-square');
