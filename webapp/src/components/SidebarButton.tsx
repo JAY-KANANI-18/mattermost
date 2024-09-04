@@ -92,6 +92,7 @@ const SidebarButton: React.FC = () => {
         // This effect will run whenever `someState` changes
         console.log('State has changed:', someState);
         const RestrictedUsersList = await getRestrictedUsersList(GlobalState)
+console.log("wd",{RestrictedUsersList});
 
 
         // Perform any side effects here, such as API calls or DOM manipulation
