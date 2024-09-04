@@ -143,7 +143,7 @@ const mainFunc = async (store: any) => {
                 console.log(inValidUsers.includes(dataValue));
 
 
-                if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))  ) {
+                if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))) {
 
                     if (element) {
                         try {
@@ -291,8 +291,8 @@ export default class Plugin {
 
 
             // Apply your middleware to each dispatch
-                    const timesele: any = document.querySelector('#sidebarItem_town-square');
-        if (timesele) timesele.style.display = 'none';
+            const timesele: any = document.querySelector('#sidebarItem_town-square');
+            if (timesele) timesele.parentNode.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         registry.registerLeftSidebarHeaderComponent(SidebarButton);
