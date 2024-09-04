@@ -14,6 +14,7 @@ const SidebarButton: React.FC = () => {
     const currentUser = { id: 'current-user-id' }; // Define your current user
 
     const someState = useSelector((state: GlobalState) => state.entities.teams.currentTeamId);
+    const state = useSelector((state: GlobalState) => state);
 
 
 
@@ -91,7 +92,7 @@ const SidebarButton: React.FC = () => {
     useEffect(async () => {
         // This effect will run whenever `someState` changes
         console.log('State has changed:', someState);
-        const RestrictedUsersList = await getRestrictedUsersList(GlobalState)
+        const RestrictedUsersList = await getRestrictedUsersList(state)
 console.log("wd",{RestrictedUsersList});
 
 
