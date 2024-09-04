@@ -76,7 +76,7 @@ const SidebarButton: React.FC = () => {
             }
             console.log({ usernames });
 
-            return allUsers.filter((element: any) => !usernames.includes(element.username));
+            return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el:any)=>el.username);
         } catch (e) {
             console.log(e);
 
