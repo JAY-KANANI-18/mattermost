@@ -162,7 +162,7 @@ const SidebarButton: React.FC = () => {
 
     useEffect(() => {
         mainFunc(state,RestrictedUsersList)
-    }, [state.entitiesate.search])
+    }, [state.entities.search])
 
 
     useEffect(() => {
