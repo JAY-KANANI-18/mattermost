@@ -98,7 +98,7 @@ const getRestrictedUsersList = async (store: any) => {
     const state = store.getState();
     console.log({ state });
     const token = state.entities.general.config.Token;
-    let allUsers = await getAllUsers(token)
+    const allUsers = await getAllUsers(token)
     const currentTeams = state.entities.teams.currentTeamId;
     let channels = await currentTeam(currentTeams, token);
     channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
@@ -221,7 +221,7 @@ const getUsersofChannels = async (channelIds: any, token: any) => {
 
 }
 
-let getAllUsers = async (token: any): Promise<any> => {
+const getAllUsers = async (token: any): Promise<any> => {
     const response = await axios.get(`${URL}/api/v4/users`, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -310,7 +310,7 @@ export default class Plugin {
         console.log('Subscribe Method:', store.subscribe);
         console.log({ "Dispatch": store.getState()?.entities });
         console.log({ "sss": store.getState()?.entities?.users });
-        let RestrictedUsersList = getRestrictedUsersList(store)
+        const RestrictedUsersList = getRestrictedUsersList(store)
         console.log({RestrictedUsersList});
 
 
