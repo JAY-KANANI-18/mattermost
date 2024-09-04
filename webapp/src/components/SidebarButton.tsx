@@ -136,6 +136,8 @@ const SidebarButton: React.FC = () => {
                     const idValue = element.id.replace("switchChannel_", "");
                     const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
                     console.log({ dataValue });
+                    console.log({ RestrictedUsersList });
+                    console.log(RestrictedUsersList.includes(dataValue));
 
 
                     if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
