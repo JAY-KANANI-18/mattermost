@@ -31,13 +31,13 @@ const myMiddleware = (store: any) => (next: any) => (action: any) => {
 // Middleware to modify API responses
 const deleteElement = () => {
 
-    const element = document.querySelector('[data-testid="mentionSuggestion_admin616"]');
+    // const element = document.querySelector('[data-testid="mentionSuggestion_admin616"]');
 
-    // Check if the element exists
-    if (element) {
-        // Remove the element from the DOM
-        element.remove();
-    }
+    // // Check if the element exists
+    // if (element) {
+    //     // Remove the element from the DOM
+    //     element.remove();
+    // }
 
 
 
