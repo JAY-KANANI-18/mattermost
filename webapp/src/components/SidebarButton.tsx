@@ -158,7 +158,7 @@ const SidebarButton: React.FC = () => {
         }
     };
     let RestrictedUsersList:any = getRestrictedUsersList(state)
-     RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
+    //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
         mainFunc(state,RestrictedUsersList)
@@ -168,7 +168,7 @@ const SidebarButton: React.FC = () => {
     useEffect(() => {
         // This effect will run whenever `someState` changes
         RestrictedUsersList = getRestrictedUsersList(state)
-        RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
+        // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
         console.log('State has changed:', someState);
         console.log("wd", { RestrictedUsersList });
