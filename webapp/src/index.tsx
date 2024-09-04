@@ -122,7 +122,9 @@ const mainFunc = async (store: any) => {
 
                     if (element && element.parentNode) {
                         try {
-                            element.parentNode.removeChild(element);
+                            element.style.display = 'none';
+
+                            // element.parentNode.removeChild(element);
                         } catch (error) {
                             console.error('Error safely removing element:', error);
                         }
