@@ -111,11 +111,13 @@ const mainFunc = async (store: any) => {
 
         const validUsers = new Set(usernames);
 
+
+
         // Remove elements not in the validUsers set
         const elements1:any = document.querySelectorAll('[id^="switchChannel_"]');
         const elements2:any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
-        console.log({ elements1 , elements2});
+        console.log({validUsers, elements1 , elements2});
         const elements = [...elements1,...elements2]
 
         if(elements.length >0){
