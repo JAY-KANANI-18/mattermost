@@ -95,20 +95,34 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
 
 
 const getRestrictedUsersList = async (store: any) => {
-    const state = store.getState();
-    console.log({ state });
-    const token = state.entities.general.config.Token;
-    const allUsers = await getAllUsers(token)
-    const currentTeams = state.entities.teams.currentTeamId;
-    let channels = await currentTeam(currentTeams, token);
-    channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
-    const usernames: string[] = [];
+    try {
 
-    for (const channel of channels) {
-        const members = await UserInChannel(channel.id, token);
-        usernames.push(...members.map((member: any) => member.username));
+        const state = store.getState();
+        console.log({ state });
+        const token = state.entities.general.config.Token;
+        const allUsers = await getAllUsers(token)
+        console.log({ allUsers });
+
+        const currentTeams = state.entities.teams.currentTeamId;
+        let channels = await currentTeam(currentTeams, token);
+        console.log({ channels });
+
+        channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
+        console.log({ channels });
+        const usernames: string[] = [];
+
+        for (const channel of channels) {
+            const members = await UserInChannel(channel.id, token);
+            usernames.push(...members.map((member: any) => member.username));
+        }
+        console.log({ usernames });
+
+        return allUsers.filter((element: any) => !usernames.includes(element.username));
+    } catch (e) {
+        console.log(e);
+
+        return e
     }
-    return allUsers.filter((element: any) => !usernames.includes(element.username));
 
 };
 
@@ -198,7 +212,7 @@ const mainFunc = async (store: any, RestrictedUsersList: any) => {
 //         });
 //     });
 
-    // Observe changes in the body or any specific container element
+// Observe changes in the body or any specific container element
 //     observer.observe(document.body, { childList: true, subtree: true });
 // };
 const UserInChannel = async (channelId: any, token: any) => {
@@ -310,8 +324,8 @@ export default class Plugin {
         console.log('Subscribe Method:', store.subscribe);
         console.log({ "Dispatch": store.getState()?.entities });
         console.log({ "sss": store.getState()?.entities?.users });
-        const RestrictedUsersList = getRestrictedUsersList(store)
-        console.log({RestrictedUsersList});
+        const RestrictedUsersList = await getRestrictedUsersList(store)
+        console.log({ RestrictedUsersList });
 
 
 
