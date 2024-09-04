@@ -281,8 +281,17 @@ export default class Plugin {
 
 
         const dispatch = store.dispatch;
-        store.dispatch = (action: any) => {
+        store.dispatch =async (action: any) => {
             if (typeof action === 'function') {
+
+                const wrappedAction = (...args: any[]) => {
+                    console.log('Wrapped function arguments:', args);
+
+                    // Call the original thunk function
+                    return action(...args);
+                };
+                await wrappedAction(store.dispatch, store.getState);
+
                 console.log('Anonymous function dispatched:', action.toString());
             } else {
                 console.log('Action dispatched:', {action});
