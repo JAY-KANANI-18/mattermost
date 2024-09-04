@@ -52,10 +52,10 @@ const SidebarButton: React.FC = () => {
     }
 
 
-    const getRestrictedUsersList = async (store: any) => {
+    const getRestrictedUsersList = async (state: any) => {
         try {
 
-            const state = store.getState();
+            // const state = store.getState();
             console.log({ state });
             const token = state.entities.general.config.Token;
             const allUsers = await getAllUsers(token)
