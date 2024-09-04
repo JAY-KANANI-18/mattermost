@@ -12,7 +12,7 @@ const SidebarButton: React.FC = () => {
     const [members, setMembers] = useState<Member[]>([]);
     const currentUser = { id: 'current-user-id' }; // Define your current user
 
-    const someState = useSelector((state: GlobalState) => state.teams.currentTeamId);
+    const someState = useSelector((state: GlobalState) => console.log(state));
 
     useEffect(() => {
         // This effect will run whenever `someState` changes
