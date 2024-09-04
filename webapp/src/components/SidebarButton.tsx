@@ -89,11 +89,11 @@ const SidebarButton: React.FC = () => {
 
 
 
-    useEffect(async () => {
+    useEffect( () => {
         // This effect will run whenever `someState` changes
         console.log('State has changed:', someState);
-        const RestrictedUsersList = await getRestrictedUsersList(state)
-console.log("wd",{RestrictedUsersList});
+        const RestrictedUsersList =  getRestrictedUsersList(state)
+        console.log("wd", { RestrictedUsersList });
 
 
         // Perform any side effects here, such as API calls or DOM manipulation
@@ -104,7 +104,7 @@ console.log("wd",{RestrictedUsersList});
     // const isMember = members.some((member: Member) => member.user_id === currentUser.id);
 
     return (
-    <></>
+        <></>
     );
 };
 
