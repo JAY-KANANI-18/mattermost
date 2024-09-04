@@ -17,6 +17,7 @@ const SidebarButton: React.FC = () => {
     const state = useSelector((state: GlobalState) => state);
 
 
+    const URL = "http://localhost:8065"
 
     const getAllUsers = async (token: any): Promise<any> => {
         const response = await axios.get(`${URL}/api/v4/users`, {
