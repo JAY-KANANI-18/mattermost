@@ -14,7 +14,8 @@ import SidebarButton from './components/SidebarButton';
 import { Provider } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 
-
+// const URL = "http://localhost:8065"
+const URL = "https://chat.crmtiger.com"
 const myMiddleware = (store: any) => (next: any) => (action: any) => {
     console.log('Dispatching action:', action);
 
@@ -174,7 +175,7 @@ const observeDOMChanges = (store: any) => {
     observer.observe(document.body, { childList: true, subtree: true });
 };
 const UserInChannel = async (channelId: any, token: any) => {
-    const response = await axios.get(`http://localhost:8065/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
+    const response = await axios.get(`${URL}/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
 `, {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -185,7 +186,7 @@ const UserInChannel = async (channelId: any, token: any) => {
 }
 
 const currentTeam = async (teamId: any, token: any) => {
-    const response = await axios.get(`http://localhost:8065/api/v4/users/me/teams/${teamId}/channels`, {
+    const response = await axios.get(`${URL}/api/v4/users/me/teams/${teamId}/channels`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -231,7 +232,7 @@ export default class Plugin {
 
 
     private async fetchChannelMembers(channelId: string, token: string) {
-        const response = await axios.get(`${"http://localhost:8065/api/v4"}/channels/${channelId}/members`, {
+        const response = await axios.get(`${URL}/api/v4/channels/${channelId}/members`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
