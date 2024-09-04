@@ -126,6 +126,8 @@ const mainFunc = async (store: any) => {
                 const idValue = element.id.replace("switchChannel_", "");
                 const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
                 console.log({dataValue});
+                console.log(validUsers.has(dataValue));
+
 
                 if (!validUsers.has(idValue) || !validUsers.has(dataValue)) {
 
