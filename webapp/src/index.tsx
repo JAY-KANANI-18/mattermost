@@ -103,7 +103,7 @@ const mainFunc = async (store: any) => {
         let channels = await currentTeam(currentTeams, token);
         const channel1 = [...channels]
         channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
-        console.log({ channel1, channels });
+        // console.log({ channel1, channels });
 
         // Get usernames of members in filtered channels
         const usernames: string[] = [];
@@ -117,10 +117,10 @@ const mainFunc = async (store: any) => {
             inValidUsernames.push(...members.map((member: any) => member.username));
         }
 
-        console.log({ inValidUsernames, usernames });
+        // console.log({ inValidUsernames, usernames });
         const inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
 
-        console.log({ inValidUsernames, inValidUsers });
+        // console.log({ inValidUsernames, inValidUsers });
 
 
 
@@ -131,7 +131,7 @@ const mainFunc = async (store: any) => {
 
         const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
-        console.log({ usernames, elements1, elements2 });
+        // console.log({ usernames, elements1, elements2 });
         const elements = [...elements1, ...elements2]
 
         if (elements.length > 0) {
@@ -139,8 +139,8 @@ const mainFunc = async (store: any) => {
             elements.forEach((element: any) => {
                 const idValue = element.id.replace("switchChannel_", "");
                 const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                console.log({ dataValue });
-                console.log(inValidUsers.includes(dataValue));
+                // console.log({ dataValue });
+                // console.log(inValidUsers.includes(dataValue));
 
 
                 if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))) {
@@ -151,7 +151,7 @@ const mainFunc = async (store: any) => {
 
                             // element.parentNode.removeChild(element);
                         } catch (error) {
-                            console.error('Error safely removing element:', error);
+                            // console.error('Error safely removing element:', error);
                         }
                     }
 
@@ -278,13 +278,15 @@ export default class Plugin {
         }
 
         const uniqueValuesArray = Array.from(values);
-        console.log({ uniqueValuesArray });
 
 
         const dispatch = store.dispatch;
         store.dispatch = (action: any) => {
-            // console.log({ action });
-            //    const channelIds = userChannels.map((channel:any) => channel.id);
+            if (typeof action === 'function') {
+                console.log('Anonymous function dispatched:', action.toString());
+            } else {
+                console.log('Action dispatched:', {action});
+            }            //    const channelIds = userChannels.map((channel:any) => channel.id);
             //    const usersInChannels = getUsersInChannels(store.getState(), channelIds);
 
             //    console.log({userChannels,channelIds,usersInChannels});
@@ -293,6 +295,8 @@ export default class Plugin {
             // Apply your middleware to each dispatch
             const timesele: any = document.querySelector('#sidebarItem_town-square');
             if (timesele) timesele.parentNode.style.display = 'none';
+            const ee: any = document.querySelector('#switchChannel_town-square');
+            if (ee) ee.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         registry.registerLeftSidebarHeaderComponent(SidebarButton);
