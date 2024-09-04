@@ -188,19 +188,19 @@ const mainFunc = async (store: any, RestrictedUsersList: any) => {
         console.error('Error in mainFunc:', error);
     }
 };
-const observeDOMChanges = (store: any) => {
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.type === 'childList') {
-                // Re-run your main function or logic here
-                mainFunc(store);
-            }
-        });
-    });
+// const observeDOMChanges = (store: any) => {
+//     const observer = new MutationObserver((mutations) => {
+//         mutations.forEach((mutation) => {
+//             if (mutation.type === 'childList') {
+//                 // Re-run your main function or logic here
+//                 mainFunc(store);
+//             }
+//         });
+//     });
 
     // Observe changes in the body or any specific container element
-    observer.observe(document.body, { childList: true, subtree: true });
-};
+//     observer.observe(document.body, { childList: true, subtree: true });
+// };
 const UserInChannel = async (channelId: any, token: any) => {
     const response = await axios.get(`${URL}/api/v4/users?in_channel=${channelId}&page=0&per_page=100&sort=admin
 `, {
@@ -297,7 +297,7 @@ export default class Plugin {
     async initialize(registry: any, store: any) {
         // Register a custom sidebar button
         const customMiddleware = myMiddleware;
-        observeDOMChanges(store)
+        // observeDOMChanges(store)
 
 
 
