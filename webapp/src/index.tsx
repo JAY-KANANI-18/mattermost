@@ -14,8 +14,8 @@ import SidebarButton from './components/SidebarButton';
 import { Provider } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 
-// const URL = "http://localhost:8065"
-const URL = "https://chat.crmtiger.com"
+const URL = "http://localhost:8065"
+// const URL = "https://chat.crmtiger.com"
 const myMiddleware = (store: any) => (next: any) => (action: any) => {
     console.log('Dispatching action:', action);
 
@@ -95,69 +95,71 @@ const getUsersInChannels = (state: any, channelIds: string[]) => {
 const mainFunc = async (store: any) => {
     try {
         const state = store.getState();
-        const token = state.entities.general.config.Token;
-        const channelIds = Object.keys(state.entities.channels.channels);
-        const currentTeams = state.entities.teams.currentTeamId;
+        console.log({state});
 
-        // Fetch channels
-        let channels = await currentTeam(currentTeams, token);
-        const channel1 = [...channels]
-        channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
-        // console.log({ channel1, channels });
+        // const token = state.entities.general.config.Token;
+        // const channelIds = Object.keys(state.entities.channels.channels);
+        // const currentTeams = state.entities.teams.currentTeamId;
 
-        // Get usernames of members in filtered channels
-        const usernames: string[] = [];
-        const inValidUsernames: string[] = [];
-        for (const channel of channels) {
-            const members = await UserInChannel(channel.id, token);
-            usernames.push(...members.map((member: any) => member.username));
-        }
-        for (const channel of channel1) {
-            const members = await UserInChannel(channel.id, token);
-            inValidUsernames.push(...members.map((member: any) => member.username));
-        }
+        // // Fetch channels
+        // let channels = await currentTeam(currentTeams, token);
+        // const channel1 = [...channels]
+        // channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
+        // // console.log({ channel1, channels });
 
-        // console.log({ inValidUsernames, usernames });
-        const inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
+        // // Get usernames of members in filtered channels
+        // const usernames: string[] = [];
+        // const inValidUsernames: string[] = [];
+        // for (const channel of channels) {
+        //     const members = await UserInChannel(channel.id, token);
+        //     usernames.push(...members.map((member: any) => member.username));
+        // }
+        // for (const channel of channel1) {
+        //     const members = await UserInChannel(channel.id, token);
+        //     inValidUsernames.push(...members.map((member: any) => member.username));
+        // }
 
-        // console.log({ inValidUsernames, inValidUsers });
+        // // console.log({ inValidUsernames, usernames });
+        // const inValidUsers: any = inValidUsernames.filter((element: any) => !usernames.includes(element));
 
-
-
-
-
-        // Remove elements not in the validUsers set
-        const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
-
-        const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
-
-        // console.log({ usernames, elements1, elements2 });
-        const elements = [...elements1, ...elements2]
-
-        if (elements.length > 0) {
-
-            elements.forEach((element: any) => {
-                const idValue = element.id.replace("switchChannel_", "");
-                const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                // console.log({ dataValue });
-                // console.log(inValidUsers.includes(dataValue));
+        // // console.log({ inValidUsernames, inValidUsers });
 
 
-                if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))) {
 
-                    if (element) {
-                        try {
-                            element.style.display = 'none';
 
-                            // element.parentNode.removeChild(element);
-                        } catch (error) {
-                            // console.error('Error safely removing element:', error);
-                        }
-                    }
 
-                }
-            });
-        }
+        // // Remove elements not in the validUsers set
+        // const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
+
+        // const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
+
+        // // console.log({ usernames, elements1, elements2 });
+        // const elements = [...elements1, ...elements2]
+
+        // if (elements.length > 0) {
+
+        //     elements.forEach((element: any) => {
+        //         const idValue = element.id.replace("switchChannel_", "");
+        //         const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
+        //         // console.log({ dataValue });
+        //         // console.log(inValidUsers.includes(dataValue));
+
+
+        //         if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))) {
+
+        //             if (element) {
+        //                 try {
+        //                     element.style.display = 'none';
+
+        //                     // element.parentNode.removeChild(element);
+        //                 } catch (error) {
+        //                     // console.error('Error safely removing element:', error);
+        //                 }
+        //             }
+
+        //         }
+        //     });
+        // }
     } catch (error) {
         console.error('Error in mainFunc:', error);
     }
