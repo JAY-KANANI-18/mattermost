@@ -11,6 +11,7 @@ const SidebarButton: React.FC = () => {
     const [canAccessChannel, setCanAccessChannel] = useState(false);
     const [channelId, setChannelId] = useState<string | null>(null);
     const [members, setMembers] = useState<Member[]>([]);
+    const [restrictedUsr, setRestrictedUsr] = useState([]);
     const currentUser = { id: 'current-user-id' }; // Define your current user
 
     const someState = useSelector((state: GlobalState) => state.entities.teams.currentTeamId);
@@ -159,11 +160,11 @@ const SidebarButton: React.FC = () => {
             console.error('Error in mainFunc:', error);
         }
     };
-    let RestrictedUsersList:any =  []
+    // let RestrictedUsersList:any =  []
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
-        mainFunc(state,RestrictedUsersList)
+        mainFunc(state,restrictedUsr)
     }, [state])
 
 
@@ -172,7 +173,8 @@ const SidebarButton: React.FC = () => {
 
         async function getp(){
 
-            RestrictedUsersList = await getRestrictedUsersList(state)
+          let  RestrictedUsersList = await getRestrictedUsersList(state)
+          setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
             console.log('State has changed:', someState);
