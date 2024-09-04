@@ -129,10 +129,11 @@ const mainFunc = async (store: any) => {
         // Remove elements not in the validUsers set
         const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
         const timesele: any = document.querySelector('#sidebarItem_town-square');
+        if (timesele) timesele.style.display = 'none';
         const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
         console.log({ usernames, elements1, elements2 });
-        const elements = [...elements1, ...elements2, timesele]
+        const elements = [...elements1, ...elements2]
 
         if (elements.length > 0) {
 
@@ -143,7 +144,7 @@ const mainFunc = async (store: any) => {
                 console.log(inValidUsers.includes(dataValue));
 
 
-                if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue)) || idValue && inValidUsers.includes("sidebarItem_town-square") ) {
+                if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))  ) {
 
                     if (element) {
                         try {
