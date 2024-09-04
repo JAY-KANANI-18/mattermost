@@ -115,9 +115,9 @@ const mainFunc = async (store: any) => {
         const elements1:any = document.querySelectorAll('[id^="switchChannel_"]');
         const elements2:any = document.querySelector(`[data-testid^="mentionSuggestion_"]`);
 
+        console.log({ elements1 , elements2});
         const elements = [...elements1,...elements2]
 
-        console.log({elements , elements1 , elements2});
         if(elements.length >0){
 
             elements.forEach((element: any) => {
