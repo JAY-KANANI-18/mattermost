@@ -129,7 +129,7 @@ const mainFunc = async (store: any) => {
                 console.log(validUsers.has(dataValue));
 
 
-                if (!validUsers.has(idValue) || !validUsers.has(dataValue)) {
+                if (( idValue && !validUsers.has(idValue)) || (dataValue && !validUsers.has(dataValue))) {
 
                     if (element ) {
                         try {
