@@ -173,7 +173,7 @@ const SidebarButton: React.FC = () => {
 
         async function getp(){
 
-          let  RestrictedUsersList = await getRestrictedUsersList(state)
+          const  RestrictedUsersList = await getRestrictedUsersList(state)
           setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
