@@ -14,8 +14,8 @@ import SidebarButton from './components/SidebarButton';
 import { Provider } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 
-const URL = "http://localhost:8065"
-// const URL = "https://chat.crmtiger.com"
+// const URL = "http://localhost:8065"
+const URL = "https://chat.crmtiger.com"
 const myMiddleware = (store: any) => (next: any) => (action: any) => {
     console.log('Dispatching action:', action);
 
