@@ -19,7 +19,7 @@ const SidebarButton: React.FC = () => {
 
     const URL = "http://localhost:8065"
 
-    const getAllUsers = async (token: any): Promise<any> => {
+    const getAllUsers = async (token: any) => {
         const response = await axios.get(`${URL}/api/v4/users`, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ const SidebarButton: React.FC = () => {
     }
 
 
-    const getRestrictedUsersList = async (state: any) => {
+    const getRestrictedUsersList = async (state: any)  => {
         try {
 
             // const state = store.getState();
