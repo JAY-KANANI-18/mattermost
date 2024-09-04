@@ -138,10 +138,10 @@ const mainFunc = async (store: any) => {
                 const idValue = element.id.replace("switchChannel_", "");
                 const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
                 console.log({ dataValue });
-                console.log(inValidUsers.has(dataValue));
+                console.log(inValidUsers.includes(dataValue));
 
 
-                if ((idValue && inValidUsers.has(idValue)) || (dataValue && inValidUsers.has(dataValue))) {
+                if ((idValue && inValidUsers.includes(idValue)) || (dataValue && inValidUsers.includes(dataValue))) {
 
                     if (element) {
                         try {
