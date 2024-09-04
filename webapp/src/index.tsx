@@ -100,7 +100,7 @@ const mainFunc = async (store: any) => {
 
         // Fetch channels
         let channels = await currentTeam(currentTeams, token);
-        let channel1 = channels
+        const channel1 = channels
         channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
         console.log({channel1,channels});
 
