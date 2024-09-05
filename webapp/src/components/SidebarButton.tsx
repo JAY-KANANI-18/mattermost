@@ -107,7 +107,7 @@ const SidebarButton: React.FC = () => {
             const privateChannelPattern = /\/api\/v4\/teams\/[^/]+\/channels/;
             if(url.endsWith('/channels')){
                 console.log("get channels of team");
-                let data:any =  clonedResponse
+                let data:any =  await clonedResponse.json()
                 console.log({ data1: data });
 
                 if (Array.isArray(data)) {
