@@ -361,7 +361,7 @@ export default class Plugin {
         };
         console.log({registry});
 
-        registry.registerChannelHeaderButton(SidebarButton);
+        registry.registerRootComponent(SidebarButton);
         // registry.registerLeftSidebarHeaderComponent(InterceptorComponent);
     }
 
