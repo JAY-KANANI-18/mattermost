@@ -78,6 +78,8 @@ const SidebarButton: React.FC = () => {
 
             // Clone the response to modify it
             const clonedResponse = response.clone();
+            console.log({url});
+
 
             // Check if the URL includes the specific path
             if (url.includes('/api/v4/users/autocomplete')) {
@@ -103,7 +105,7 @@ const SidebarButton: React.FC = () => {
             }
 
             const privateChannelPattern = /\/api\/v4\/teams\/[^/]+\/channels/;
-            if(privateChannelPattern.test(url)){
+            if(url.endsWith('/channels')){
                 console.log("get channels of team");
                 let data:any =  clonedResponse
                 console.log({ data1: data });
