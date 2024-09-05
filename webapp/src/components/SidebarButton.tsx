@@ -165,6 +165,8 @@ const SidebarButton: React.FC = () => {
             temp = response.data
             users.push(...temp)
             page++
+            console.log({response,users,temp,page});
+
 
         } while (temp.length > 0 );
 
