@@ -190,7 +190,7 @@ const SidebarButton: React.FC = () => {
             // console.log({ state });
             const token = state.entities.general.config.Token;
             const allUsers = await getAllUsers(token)
-            // console.log({ allUsers });
+            console.log({ allUsers });
 
             const currentTeams = state.entities.teams.currentTeamId;
             console.log({ currentTeams });
@@ -298,6 +298,8 @@ const SidebarButton: React.FC = () => {
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
+        console.log({restrictedUsr});
+
         mainFunc(state, restrictedUsr)
     }, [state])
 
@@ -307,6 +309,8 @@ const SidebarButton: React.FC = () => {
 
         async function getp() {
             const RestrictedUsersList = await getRestrictedUsersList(state)
+            console.log({RestrictedUsersList});
+
             setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
