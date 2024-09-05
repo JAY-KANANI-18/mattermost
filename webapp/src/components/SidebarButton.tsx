@@ -99,7 +99,7 @@ const SidebarButton: React.FC = () => {
                 // data.customField = 'Modified Data';
 
                 // Create a new Response object with modified data
-                const modifiedResponse = new Response(JSON.stringify({}), {
+                const modifiedResponse = new Response(JSON.stringify(data), {
                     status: response.status,
                     statusText: response.statusText,
                     headers: response.headers,
@@ -123,7 +123,7 @@ const SidebarButton: React.FC = () => {
                 // data.customField = 'Modified Data';
 
                 // Create a new Response object with modified data
-                const modifiedResponse = new Response(JSON.stringify({}), {
+                const modifiedResponse = new Response(JSON.stringify(data), {
                     status: response.status,
                     statusText: response.statusText,
                     headers: response.headers,
