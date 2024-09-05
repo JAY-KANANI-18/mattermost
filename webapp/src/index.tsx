@@ -314,11 +314,11 @@ export default class Plugin {
         // Register a custom sidebar button
         const customMiddleware = myMiddleware;
         // observeDOMChanges(store)
-        const rootElement = document.getElementById('root');
+        // const rootElement = document.getElementById('root');
 
-        if (rootElement) {
-            ReactDOM.render(<InterceptorComponent />, rootElement);
-        }
+        // if (rootElement) {
+        //     ReactDOM.render(<InterceptorComponent />, rootElement);
+        // }
 
 
         const userChannels = getUserChannels(store.getState())
