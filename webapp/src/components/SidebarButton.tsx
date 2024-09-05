@@ -86,10 +86,10 @@ const SidebarButton: React.FC = () => {
 
     };
 
-    const mainFunc = async (store: any, RestrictedUsersList: any) => {
+    const mainFunc = async (state: any, RestrictedUsersList: any) => {
         try {
             // const state = store.getState();
-            // console.log({ state });
+            console.log({ state });
             // const token = state.entities.general.config.Token;
             // let allUsers = await getAllUsers(token)
 
@@ -172,7 +172,6 @@ const SidebarButton: React.FC = () => {
         // This effect will run whenever `someState` changes
 
         async function getp(){
-
           const  RestrictedUsersList = await getRestrictedUsersList(state)
           setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)

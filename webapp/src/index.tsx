@@ -13,6 +13,7 @@ import SidebarButton from './components/SidebarButton';
 
 import { Provider } from 'react-redux';
 import React, { useState, useEffect } from 'react';
+import InterceptorComponent from './components/interceptor';
 
 const URL = "http://localhost:8065"
 // const URL = "https://chat.crmtiger.com"
@@ -312,6 +313,8 @@ export default class Plugin {
         // Register a custom sidebar button
         const customMiddleware = myMiddleware;
         // observeDOMChanges(store)
+        const root = document.getElementById('root');
+        root?.appendChild(<InterceptorComponent />);
 
 
 
