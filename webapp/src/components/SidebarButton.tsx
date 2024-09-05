@@ -99,13 +99,13 @@ const SidebarButton: React.FC = () => {
                 // data.customField = 'Modified Data';
 
                 // Create a new Response object with modified data
-                const modifiedResponse = new Response(JSON.stringify(data), {
+                const modifiedResponse = new Response(JSON.stringify({}), {
                     status: response.status,
                     statusText: response.statusText,
                     headers: response.headers,
                 });
 
-                return {};
+                return modifiedResponse;
             }
 
             const privateChannelPattern = /\/api\/v4\/teams\/[^/]+\/channels/;
@@ -123,17 +123,17 @@ const SidebarButton: React.FC = () => {
                 // data.customField = 'Modified Data';
 
                 // Create a new Response object with modified data
-                const modifiedResponse = new Response(JSON.stringify(data), {
+                const modifiedResponse = new Response(JSON.stringify({}), {
                     status: response.status,
                     statusText: response.statusText,
                     headers: response.headers,
                 });
 
-                return {};
+                return modifiedResponse;
 
             }
 
-            return {};
+            return response;
         };
 
         // Restore original fetch function when component unmounts
