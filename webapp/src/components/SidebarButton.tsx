@@ -153,7 +153,7 @@ const SidebarButton: React.FC = () => {
 
 
         let temp = []
-        let users:any = []
+        const users:any = []
         let page = 0
         do {
 
