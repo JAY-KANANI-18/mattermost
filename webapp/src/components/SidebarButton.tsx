@@ -102,6 +102,31 @@ const SidebarButton: React.FC = () => {
                 return modifiedResponse;
             }
 
+            const privateChannelPattern = /\/api\/v4\/teams\/[^/]+\/channels/;
+            if(privateChannelPattern.test(url)){
+                console.log("get channels of team");
+                let data:any =  clonedResponse
+                console.log({ data1: data });
+
+                if (Array.isArray(data)) {
+                    data = data.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
+                }
+                console.log({ data });
+
+                // Modify the response data
+                // data.customField = 'Modified Data';
+
+                // Create a new Response object with modified data
+                const modifiedResponse = new Response(JSON.stringify(data), {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: response.headers,
+                });
+
+                return modifiedResponse;
+
+            }
+
             return response;
         };
 
