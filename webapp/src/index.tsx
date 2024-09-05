@@ -359,7 +359,7 @@ export default class Plugin {
             // if (ee) ee.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
-        registry.registerPostTypeComponent(SidebarButton);
+        registry.registerChannelHeaderButton(SidebarButton);
         // registry.registerLeftSidebarHeaderComponent(InterceptorComponent);
     }
 
