@@ -347,19 +347,19 @@ export default class Plugin {
         // const uniqueValuesArray = Array.from(values);
 
 
-        const dispatch = store.dispatch;
-        store.dispatch = async (action: any) => {
+        // const dispatch = store.dispatch;
+        // store.dispatch = async (action: any) => {
 
 
-            // mainFunc(store, RestrictedUsersList)
+        //     // mainFunc(store, RestrictedUsersList)
 
-            // const timesele: any = document.querySelector('#sidebarItem_town-square');
-            // if (timesele) timesele.parentNode.style.display = 'none';
-            // const ee: any = document.querySelector('#switchChannel_town-square');
-            // if (ee) ee.style.display = 'none';
-            return modifyApiResponseMiddleware(store)(dispatch)(action);
-        };
-        console.log({registry});
+        //     const timesele: any = document.querySelector('#sidebarItem_town-square');
+        //     if (timesele) timesele.parentNode.style.display = 'none';
+        //     const ee: any = document.querySelector('#switchChannel_town-square');
+        //     if (ee) ee.style.display = 'none';
+        //     return modifyApiResponseMiddleware(store)(dispatch)(action);
+        // };
+        // console.log({registry});
 
         registry.registerRootComponent(SidebarButton);
         // registry.registerLeftSidebarHeaderComponent(InterceptorComponent);
