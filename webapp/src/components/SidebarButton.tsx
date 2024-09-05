@@ -56,14 +56,7 @@ const SidebarButton: React.FC = () => {
 
     useEffect(() => {
 
-        axios.interceptors.request.use((config:any) => {
-            console.log('Request URL:', config.url);
-            console.log({config});
 
-            return config;
-        }, (error:any) => {
-            return Promise.reject(error);
-        });
         // Save the original fetch function
         const originalFetch = window.fetch;
 
@@ -112,7 +105,7 @@ const SidebarButton: React.FC = () => {
                     headers: response.headers,
                 });
 
-                return modifiedResponse;
+                return {};
             }
 
             const privateChannelPattern = /\/api\/v4\/teams\/[^/]+\/channels/;
@@ -136,11 +129,11 @@ const SidebarButton: React.FC = () => {
                     headers: response.headers,
                 });
 
-                return modifiedResponse;
+                return {};
 
             }
 
-            return response;
+            return {};
         };
 
         // Restore original fetch function when component unmounts
