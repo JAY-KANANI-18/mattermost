@@ -55,7 +55,7 @@ const SidebarButton: React.FC = () => {
                 console.log({data1:data});
 
                 if (Array.isArray(data.users)) {
-                data.users =  data.users.filter((element:any) => !restrictedUsr.includes(element?.username));
+                data.users =  data.users.filter((element:any) => !restrictedUsr.includes(element.username || ""));
             }
                 console.log({data});
 
