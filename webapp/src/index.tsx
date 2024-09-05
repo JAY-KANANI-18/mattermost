@@ -282,7 +282,7 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
                 payload: modifiedResponse,
             };
 
-            return next(modifiedAction); // Pass the modified action
+            return next(action); // Pass the modified action
         }
 
     }
@@ -358,7 +358,7 @@ export default class Plugin {
             // if (timesele) timesele.parentNode.style.display = 'none';
             // const ee: any = document.querySelector('#switchChannel_town-square');
             // if (ee) ee.style.display = 'none';
-            // return modifyApiResponseMiddleware(store)(dispatch)(action);
+            return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         // console.log({registry});
 
