@@ -7,6 +7,7 @@ interface Member {
     user_id: string;
     // other properties
 }
+
 interface User {
     "id": string,
     "create_at": number,
@@ -54,6 +55,15 @@ const SidebarButton: React.FC = () => {
 
 
     useEffect(() => {
+
+        axios.interceptors.request.use((config:any) => {
+            console.log('Request URL:', config.url);
+            console.log({config});
+
+            return config;
+        }, (error:any) => {
+            return Promise.reject(error);
+        });
         // Save the original fetch function
         const originalFetch = window.fetch;
 
