@@ -61,6 +61,8 @@ const SidebarButton: React.FC = () => {
         window.fetch = async (...args: [RequestInfo | URL, RequestInit?]) => {
             let url: string;
 
+
+            console.log({url : args[0]});
             // Handle different types for args[0]
             if (typeof args[0] === 'string') {
                 url = args[0];
@@ -78,7 +80,6 @@ const SidebarButton: React.FC = () => {
 
             // Clone the response to modify it
             const clonedResponse = response.clone();
-            console.log({url});
 
 
             // Check if the URL includes the specific path
