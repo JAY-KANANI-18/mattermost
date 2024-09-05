@@ -3,6 +3,7 @@ import { Store, Action } from 'redux';
 import { GlobalState } from '@mattermost/types/lib/store';
 import { Client4 } from '@mattermost/client';
 
+import ReactDOM from 'react-dom';
 
 import manifest from '@/manifest';
 import axios from 'axios';
@@ -313,10 +314,11 @@ export default class Plugin {
         // Register a custom sidebar button
         const customMiddleware = myMiddleware;
         // observeDOMChanges(store)
-        const root = document.getElementById('root');
-        root?.appendChild(<InterceptorComponent />);
+        const rootElement = document.getElementById('root');
 
-
+        if (rootElement) {
+            ReactDOM.render(<InterceptorComponent />, rootElement);
+        }
 
 
         const userChannels = getUserChannels(store.getState())
