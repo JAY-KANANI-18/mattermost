@@ -49,8 +49,8 @@ const SidebarButton: React.FC = () => {
     const state = useSelector((state: GlobalState) => state);
 
 
-    // const Url = "http://localhost:8065"
-    const Url = "https://chat.crmtiger.com"
+    const Url = "http://localhost:8065"
+    // const Url = "https://chat.crmtiger.com"
 
 
 
@@ -150,13 +150,25 @@ const SidebarButton: React.FC = () => {
 
 
     const getAllUsers = async (token: any) => {
-        const response = await axios.get(`${Url}/api/v4/users`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        return response.data;
 
+
+        let temp = []
+        let users:any = []
+        let page = 0
+        do {
+
+            const response = await axios.get(`${Url}/api/v4/users?page=${0}&per_page=200`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            temp = response.data
+            users.push(...temp)
+            page++
+
+        } while (temp.length > 0 );
+
+        return users;
     }
 
     const currentTeam = async (teamId: any, token: any) => {
