@@ -41,7 +41,7 @@ const SidebarButton: React.FC = () => {
     const [canAccessChannel, setCanAccessChannel] = useState(false);
     const [channelId, setChannelId] = useState<string | null>(null);
     const [members, setMembers] = useState<Member[]>([]);
-    const [restrictedUsr, setRestrictedUsr] = useState([]);
+    const [restrictedUsr, setRestrictedUsr] = useState<string[]>([]);
     const currentUser = { id: 'current-user-id' }; // Define your current user
 
     const someState = useSelector((state: GlobalState) => state.entities.teams.currentTeamId);
