@@ -187,7 +187,7 @@ const SidebarButton: React.FC = () => {
         try {
 
             // const state = store.getState();
-            // console.log({ state });
+            console.log({ state });
             const token = state.entities.general.config.Token;
             const allUsers = await getAllUsers(token)
             console.log({ allUsers });
