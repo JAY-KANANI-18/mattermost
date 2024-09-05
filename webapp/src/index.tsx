@@ -360,6 +360,7 @@ export default class Plugin {
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         registry.registerLeftSidebarHeaderComponent(SidebarButton);
+        registry.registerLeftSidebarHeaderComponent(InterceptorComponent);
     }
 
     uninitialize() {
