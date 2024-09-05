@@ -40,7 +40,7 @@ const SidebarButton: React.FC = () => {
                 url = args[0].toString();  // Convert URL to string
                 args[0] = url;  // Update args[0] to be a string
             } else {
-                return originalFetch(args[0],args[1]);
+                return originalFetch(args[0], args[1]);
             }
 
             // Call the original fetch
@@ -51,13 +51,13 @@ const SidebarButton: React.FC = () => {
 
             // Check if the URL includes the specific path
             if (url.includes('/api/v4/users/autocomplete')) {
-                let data:any = await clonedResponse.json();
-                console.log({data1:data});
+                let data: any = await clonedResponse.json();
+                console.log({ data1: data });
 
                 if (Array.isArray(data)) {
-                data =  data.filter((element:any) => !restrictedUsr.includes(element.username));
-            }
-                console.log({data});
+                    data = data.filter((element: any) => !restrictedUsr.includes(element?.username));
+                }
+                console.log({ data });
 
                 // Modify the response data
                 // data.customField = 'Modified Data';
@@ -122,7 +122,7 @@ const SidebarButton: React.FC = () => {
     }
 
 
-    const getRestrictedUsersList = async (state: any)  => {
+    const getRestrictedUsersList = async (state: any) => {
         try {
 
             // const state = store.getState();
@@ -145,7 +145,7 @@ const SidebarButton: React.FC = () => {
             }
             console.log({ usernames });
 
-            return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el:any)=>el.username);
+            return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el: any) => el.username);
         } catch (e) {
             console.log(e);
 
@@ -232,16 +232,16 @@ const SidebarButton: React.FC = () => {
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
-        mainFunc(state,restrictedUsr)
+        mainFunc(state, restrictedUsr)
     }, [state])
 
 
     useEffect(() => {
         // This effect will run whenever `someState` changes
 
-        async function getp(){
-          const  RestrictedUsersList = await getRestrictedUsersList(state)
-          setRestrictedUsr(RestrictedUsersList)
+        async function getp() {
+            const RestrictedUsersList = await getRestrictedUsersList(state)
+            setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
             console.log('State has changed:', someState);
