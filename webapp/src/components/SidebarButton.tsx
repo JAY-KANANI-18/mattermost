@@ -51,7 +51,7 @@ const SidebarButton: React.FC = () => {
 
             // Check if the URL includes the specific path
             if (url.includes('/api/v4/users/autocomplete')) {
-                let data:any = await clonedResponse.json();
+                const data:any = await clonedResponse.json();
                 console.log({data1:data});
 
                 if (Array.isArray(data.users)) {
