@@ -51,10 +51,13 @@ const SidebarButton: React.FC = () => {
 
             // Check if the URL includes the specific path
             if (url.includes('/api/v4/users/autocomplete')) {
-                const data = await clonedResponse.json();
+                let data = await clonedResponse.json();
+                console.log({data1:data});
 
+                if (Array.isArray(data)) {
+                data =  data.filter(element => !restrictedUsr.includes(element.username));
+            }
                 console.log({data});
-
 
                 // Modify the response data
                 // data.customField = 'Modified Data';
