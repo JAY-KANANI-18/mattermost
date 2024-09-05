@@ -187,24 +187,24 @@ const SidebarButton: React.FC = () => {
         try {
 
             // const state = store.getState();
-            console.log({ state });
+            // console.log({ state });
             const token = state.entities.general.config.Token;
             const allUsers = await getAllUsers(token)
-            console.log({ allUsers });
+            // console.log({ allUsers });
 
             const currentTeams = state.entities.teams.currentTeamId;
             let channels = await currentTeam(currentTeams, token);
-            console.log({ channels });
+            // console.log({ channels });
 
             channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
-            console.log({ channels });
+            // console.log({ channels });
             const usernames: string[] = [];
 
             for (const channel of channels) {
                 const members = await UserInChannel(channel.id, token);
                 usernames.push(...members.map((member: any) => member.username));
             }
-            console.log({ usernames });
+            // console.log({ usernames });
 
             return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el: any) => el.username);
         } catch (e) {
@@ -218,7 +218,7 @@ const SidebarButton: React.FC = () => {
     const mainFunc = async (state: any, RestrictedUsersList: any) => {
         try {
             // const state = store.getState();
-            console.log({ state });
+            // console.log({ state });
             const timesele: any = document.querySelector('#sidebarItem_town-square');
             if (timesele) timesele.parentNode.style.display = 'none';
             const ee: any = document.querySelector('#switchChannel_town-square');
@@ -269,9 +269,9 @@ const SidebarButton: React.FC = () => {
                 elements.forEach((element: any) => {
                     const idValue = element.id.replace("switchChannel_", "");
                     const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                    console.log({ dataValue });
-                    console.log({ RestrictedUsersList });
-                    console.log(RestrictedUsersList.includes(dataValue));
+                    // console.log({ dataValue });
+                    // console.log({ RestrictedUsersList });
+                    // console.log(RestrictedUsersList.includes(dataValue));
 
 
                     if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
@@ -309,8 +309,8 @@ const SidebarButton: React.FC = () => {
             setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
-            console.log('State has changed:', someState);
-            console.log("wd", { RestrictedUsersList });
+            // console.log('State has changed:', someState);
+            // console.log("wd", { RestrictedUsersList });
         }
         getp()
 

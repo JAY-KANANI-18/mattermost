@@ -16,21 +16,9 @@ import { Provider } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import InterceptorComponent from './components/interceptor';
 
-const URL = "http://localhost:8065"
-// const URL = "https://chat.crmtiger.com"
-const myMiddleware = (store: any) => (next: any) => (action: any) => {
-    console.log('Dispatching action:', action);
+// const URL = "http://localhost:8065"
+const URL = "https://chat.crmtiger.com"
 
-    // Example: Only allow actions of a specific type
-    if (action.type === 'MY_CUSTOM_ACTION') {
-        console.log({ type: action.type });
-
-        // Do something with the action or state
-    }
-
-    // Proceed to the next middleware or reducer
-    return next(action);
-};
 // Middleware to modify API responses
 const hideSuggetion = (username: any) => {
 
@@ -100,24 +88,24 @@ const getRestrictedUsersList = async (store: any) => {
     try {
 
         const state = store.getState();
-        console.log({ state });
+        // console.log({ state });
         const token = state.entities.general.config.Token;
         const allUsers = await getAllUsers(token)
-        console.log({ allUsers });
+        // console.log({ allUsers });
 
         const currentTeams = state.entities.teams.currentTeamId;
         let channels = await currentTeam(currentTeams, token);
-        console.log({ channels });
+        // console.log({ channels });
 
         channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
-        console.log({ channels });
+        // console.log({ channels });
         const usernames: string[] = [];
 
         for (const channel of channels) {
             const members = await UserInChannel(channel.id, token);
             usernames.push(...members.map((member: any) => member.username));
         }
-        console.log({ usernames });
+        // console.log({ usernames });
 
         return allUsers.filter((element: any) => !usernames.includes(element.username));
     } catch (e) {
@@ -262,28 +250,26 @@ const modifyApiResponseMiddleware = (store: any) => (next: any) => (action: any)
     // deleteElement()
     if (action.payload) {
 
-        const users = action.payload?.users
-        const out_of_channel = action.payload?.out_of_channel;
-        console.log({ users, out_of_channel });
+        // const users = action.payload?.users
+        // const out_of_channel = action.payload?.out_of_channel;
+        // console.log({ users, out_of_channel });
 
-        if (users || out_of_channel) {
+        // if (users || out_of_channel) {
+        //     // Modify the response (e.g., filter out 'out_of_channel' users)
+        //     const modifiedResponse = {
+        //         ...action.payload,
+        //         users: [...users],  // Keep the current users
+        //         out_of_channel: [],  // Clear out_of_channel users or manipulate as needed
+        //     };
 
-
-            // Modify the response (e.g., filter out 'out_of_channel' users)
-            const modifiedResponse = {
-                ...action.payload,
-                users: [...users],  // Keep the current users
-                out_of_channel: [],  // Clear out_of_channel users or manipulate as needed
-            };
-
-            // Dispatch the modified data to the next middleware/reducer
-            const modifiedAction = {
-                ...action,
-                payload: modifiedResponse,
-            };
+        //     // Dispatch the modified data to the next middleware/reducer
+        //     const modifiedAction = {
+        //         ...action,
+        //         payload: modifiedResponse,
+        //     };
 
             return next(action); // Pass the modified action
-        }
+        // }
 
     }
 
@@ -323,12 +309,12 @@ export default class Plugin {
 
         const userChannels = getUserChannels(store.getState())
 
-        console.log('Store:', store);
-        console.log('Store State:', store.getState());
-        console.log('Dispatch Method:', store.dispatch);
-        console.log('Subscribe Method:', store.subscribe);
-        console.log({ "Dispatch": store.getState()?.entities });
-        console.log({ "sss": store.getState()?.entities?.users });
+        // console.log('Store:', store);
+        // console.log('Store State:', store.getState());
+        // console.log('Dispatch Method:', store.dispatch);
+        // console.log('Subscribe Method:', store.subscribe);
+        // console.log({ "Dispatch": store.getState()?.entities });
+        // console.log({ "sss": store.getState()?.entities?.users });
         // const RestrictedUsersList = await getRestrictedUsersList(store)
         // console.log({ RestrictedUsersList });
 
