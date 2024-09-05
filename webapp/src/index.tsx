@@ -62,7 +62,7 @@ const getUserChannels = (state: any) => {
 
     const currentUserId = state.entities.users.currentUserId;
     const channels = state.entities.channels.channels;
-    console.log({ currentUserId, channels });
+    // console.log({ currentUserId, channels });
     return [];
     // return Object.values(state.entities.channels.myChannels)
     //     .filter((channel:any) => state.entities.channels.membersInChannel[channel.id]?.includes(currentUserId));
@@ -336,7 +336,7 @@ export default class Plugin {
         const dispatch = store.dispatch;
         store.dispatch = async (action: any,payload:any) => {
 
-            console.log({action,payload});
+            // console.log({action,payload});
 
             // mainFunc(store, RestrictedUsersList)
 
