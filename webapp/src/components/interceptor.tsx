@@ -18,7 +18,7 @@ const InterceptorComponent: React.FC = () => {
                 url = args[0].toString();  // Convert URL to string
                 args[0] = url;  // Update args[0] to be a string
             } else {
-                return originalFetch(...args);
+                return originalFetch(args[0],args[1]);
             }
 
             // Call the original fetch
