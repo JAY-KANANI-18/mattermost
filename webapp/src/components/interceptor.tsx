@@ -9,7 +9,7 @@ const InterceptorComponent: React.FC = () => {
         window.fetch = async (...args: [RequestInfo | URL, RequestInit?]) => {
             let url: string;
 
-            // Determine if args[0] is a string, Request, or URL object
+            // Handle different types for args[0]
             if (typeof args[0] === 'string') {
                 url = args[0];
             } else if (args[0] instanceof Request) {
@@ -22,7 +22,7 @@ const InterceptorComponent: React.FC = () => {
             }
 
             // Call the original fetch
-            const response = await originalFetch(...args);
+            const response = await originalFetch(args[0], args[1]);
 
             // Clone the response to modify it
             const clonedResponse = response.clone();
