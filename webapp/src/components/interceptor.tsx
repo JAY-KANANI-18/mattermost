@@ -31,6 +31,9 @@ const InterceptorComponent: React.FC = () => {
             if (url.includes('/api/v4/users')) {
                 const data = await clonedResponse.json();
 
+                console.log({data});
+
+
                 // Modify the response data
                 data.customField = 'Modified Data';
 
