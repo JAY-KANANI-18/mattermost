@@ -312,7 +312,7 @@ export default class Plugin {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
     async initialize(registry: any, store: any) {
         // Register a custom sidebar button
-        const customMiddleware = myMiddleware;
+        // const customMiddleware = myMiddleware;
         // observeDOMChanges(store)
         // const rootElement = document.getElementById('root');
 
@@ -353,14 +353,14 @@ export default class Plugin {
 
             // mainFunc(store, RestrictedUsersList)
 
-            const timesele: any = document.querySelector('#sidebarItem_town-square');
-            if (timesele) timesele.parentNode.style.display = 'none';
-            const ee: any = document.querySelector('#switchChannel_town-square');
-            if (ee) ee.style.display = 'none';
+            // const timesele: any = document.querySelector('#sidebarItem_town-square');
+            // if (timesele) timesele.parentNode.style.display = 'none';
+            // const ee: any = document.querySelector('#switchChannel_town-square');
+            // if (ee) ee.style.display = 'none';
             return modifyApiResponseMiddleware(store)(dispatch)(action);
         };
         registry.registerLeftSidebarHeaderComponent(SidebarButton);
-        registry.registerLeftSidebarHeaderComponent(InterceptorComponent);
+        // registry.registerLeftSidebarHeaderComponent(InterceptorComponent);
     }
 
     uninitialize() {
