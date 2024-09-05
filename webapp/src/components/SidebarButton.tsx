@@ -193,8 +193,9 @@ const SidebarButton: React.FC = () => {
             // console.log({ allUsers });
 
             const currentTeams = state.entities.teams.currentTeamId;
+            console.log({ currentTeams });
             let channels = await currentTeam(currentTeams, token);
-            // console.log({ channels });
+            console.log({ channels });
 
             channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
             // console.log({ channels });
@@ -204,7 +205,7 @@ const SidebarButton: React.FC = () => {
                 const members = await UserInChannel(channel.id, token);
                 usernames.push(...members.map((member: any) => member.username));
             }
-            // console.log({ usernames });
+            console.log({ usernames });
 
             return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el: any) => el.username);
         } catch (e) {
@@ -269,8 +270,8 @@ const SidebarButton: React.FC = () => {
                 elements.forEach((element: any) => {
                     const idValue = element.id.replace("switchChannel_", "");
                     const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                    // console.log({ dataValue });
-                    // console.log({ RestrictedUsersList });
+                    console.log({ dataValue });
+                    console.log({ RestrictedUsersList });
                     // console.log(RestrictedUsersList.includes(dataValue));
 
 
