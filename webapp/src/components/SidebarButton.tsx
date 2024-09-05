@@ -7,6 +7,36 @@ interface Member {
     user_id: string;
     // other properties
 }
+interface User {
+    "id": string,
+    "create_at": number,
+    "update_at": number,
+    "delete_at": number,
+    "username": string,
+    "auth_data": string,
+    "auth_service": string,
+    "email": string,
+    "nickname": string,
+    "first_name": string,
+    "last_name": string,
+    "position": string,
+    "roles": string,
+    "last_picture_update": number,
+    "locale": string,
+    "timezone": {
+        "automaticTimezone": string,
+        "manualTimezone": string,
+        "useAutomaticTimezone": string
+    },
+    "is_bot": boolean,
+    "bot_description": string,
+    "disable_welcome_email": boolean
+}
+
+interface ApiResponse {
+    users: User[];
+    // Add other properties if needed
+}
 const SidebarButton: React.FC = () => {
     const [canAccessChannel, setCanAccessChannel] = useState(false);
     const [channelId, setChannelId] = useState<string | null>(null);
@@ -40,7 +70,7 @@ const SidebarButton: React.FC = () => {
                 url = args[0].toString();  // Convert URL to string
                 args[0] = url;  // Update args[0] to be a string
             } else {
-                return originalFetch(args[0],args[1]);
+                return originalFetch(args[0], args[1]);
             }
 
             // Call the original fetch
@@ -51,13 +81,13 @@ const SidebarButton: React.FC = () => {
 
             // Check if the URL includes the specific path
             if (url.includes('/api/v4/users/autocomplete')) {
-                const data:any = await clonedResponse.json();
-                console.log({data1:data});
+                const data: ApiResponse = await clonedResponse.json();
+                console.log({ data1: data });
 
                 if (Array.isArray(data.users)) {
-                data.users =  data.users.filter((element:any) => !restrictedUsr.includes(element.username || ""));
-            }
-                console.log({data});
+                    data.users = data.users.filter((element: User) => !restrictedUsr.includes(element.username || ""));
+                }
+                console.log({ data });
 
                 // Modify the response data
                 // data.customField = 'Modified Data';
@@ -122,7 +152,7 @@ const SidebarButton: React.FC = () => {
     }
 
 
-    const getRestrictedUsersList = async (state: any)  => {
+    const getRestrictedUsersList = async (state: any) => {
         try {
 
             // const state = store.getState();
@@ -145,7 +175,7 @@ const SidebarButton: React.FC = () => {
             }
             console.log({ usernames });
 
-            return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el:any)=>el.username);
+            return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el: any) => el.username);
         } catch (e) {
             console.log(e);
 
@@ -232,16 +262,16 @@ const SidebarButton: React.FC = () => {
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
-        mainFunc(state,restrictedUsr)
+        mainFunc(state, restrictedUsr)
     }, [state])
 
 
     useEffect(() => {
         // This effect will run whenever `someState` changes
 
-        async function getp(){
-          const  RestrictedUsersList = await getRestrictedUsersList(state)
-          setRestrictedUsr(RestrictedUsersList)
+        async function getp() {
+            const RestrictedUsersList = await getRestrictedUsersList(state)
+            setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
             console.log('State has changed:', someState);
