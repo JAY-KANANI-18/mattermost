@@ -173,7 +173,7 @@ const SidebarButton: React.FC = () => {
             }
      
             
-            console.log({response,users,temp,page});
+            // console.log({response,users,temp,page});
 
 
         } while (temp.length > 0 );
@@ -209,15 +209,15 @@ const SidebarButton: React.FC = () => {
         try {
 
             // const state = store.getState();
-            console.log({ state });
+            // console.log({ state });
             const token = state.entities.general.config.Token;
             const allUsers = await getAllUsers(token)
-            console.log({ allUsers });
+            // console.log({ allUsers });
 
             const currentTeams = state.entities.teams.currentTeamId;
-            console.log({ currentTeams });
+            // console.log({ currentTeams });
             let channels = await currentTeam(currentTeams, token);
-            console.log({ channels });
+            // console.log({ channels });
 
             channels = channels.filter((channel: any) => channel.display_name !== "Town Square" && channel.display_name !== "");
             // console.log({ channels });
@@ -227,7 +227,7 @@ const SidebarButton: React.FC = () => {
                 const members = await UserInChannel(channel.id, token);
                 usernames.push(...members.map((member: any) => member.username));
             }
-            console.log({ usernames });
+            // console.log({ usernames });
 
             return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el: any) => el.username);
         } catch (e) {
@@ -292,8 +292,8 @@ const SidebarButton: React.FC = () => {
                 elements.forEach((element: any) => {
                     const idValue = element.id.replace("switchChannel_", "");
                     const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                    console.log({ dataValue });
-                    console.log({ RestrictedUsersList });
+                    // console.log({ dataValue });
+                    // console.log({ RestrictedUsersList });
                     // console.log(RestrictedUsersList.includes(dataValue));
 
 
@@ -320,7 +320,7 @@ const SidebarButton: React.FC = () => {
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
-        console.log({restrictedUsr});
+        // console.log({restrictedUsr});
 
         mainFunc(state, restrictedUsr)
     }, [state])
@@ -331,7 +331,7 @@ const SidebarButton: React.FC = () => {
 
         async function getp() {
             const RestrictedUsersList = await getRestrictedUsersList(state)
-            console.log({RestrictedUsersList});
+            // console.log({RestrictedUsersList});
 
             setRestrictedUsr(RestrictedUsersList)
             // RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
