@@ -337,8 +337,8 @@ const SidebarButton: React.FC = () => {
 
     const observer = new MutationObserver((mutations) => {
         console.log({state});
-        let current = state.entities.users.currentUserId
-        let find = state.entities.users.profiles[current].roles.includes("system_admin")
+        const current = state.entities.users.currentUserId
+        const find = state.entities.users.profiles[current].roles.includes("system_admin")
         if(find) { console.log("return");
             return}        mutations.forEach((mutation) => {
             if (mutation.type === 'childList' || mutation.type === 'attributes') {
@@ -352,8 +352,8 @@ const SidebarButton: React.FC = () => {
 
 
     useEffect(() => {
-        let current = state.entities.users.currentUserId
-        let find = state.entities.users.profiles[current].roles.includes("system_admin")
+        const current = state.entities.users.currentUserId
+        const find = state.entities.users.profiles[current].roles.includes("system_admin")
         if(find) { console.log("return");
          return}
         // This effect will run whenever `someState` changes
