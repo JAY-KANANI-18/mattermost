@@ -50,8 +50,8 @@ const SidebarButton: React.FC = () => {
     const state = useSelector((state: GlobalState) => state);
 
 
-    const Url = "http://localhost:8065"
-    // const Url = "https://chat.crmtiger.com"
+    // const Url = "http://localhost:8065"
+    const Url = "https://chat.crmtiger.com"
 
 
 
@@ -353,7 +353,7 @@ const SidebarButton: React.FC = () => {
 
     useEffect(() => {
         const current = state.entities.users.currentUserId
-        const find = state.entities.users.profiles[current].roles.includes("system_admin")
+        const find = state.entities.users.profiles[current].roles.includes("system_admin") || state.entities.users.profiles[current].roles.includes("team_admin")
         if(find) { console.log("return");
          return}
         // This effect will run whenever `someState` changes
