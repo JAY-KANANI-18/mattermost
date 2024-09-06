@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GlobalState } from '@mattermost/types/lib/store';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import manifest from '@/manifest';
 
 interface Member {
     user_id: string;
@@ -327,10 +328,21 @@ const SidebarButton: React.FC = () => {
 
         mainFunc(state, restrictedUsr)
     }, [state])
-    document.addEventListener('DOMContentLoaded', () => {
-        mainFunc(state, restrictedUsr)
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     mainFunc(state, restrictedUsr)
 
+    // });
+
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList' || mutation.type === 'attributes') {
+                mainFunc(state, restrictedUsr);
+            }
+        });
     });
+    
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-testid'] });
+    
 
 
     useEffect(() => {
