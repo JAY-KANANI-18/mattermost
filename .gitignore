@@ -1,6 +1,8 @@
 bin/
 dist/
 webapp/src/manifest.ts
+webapp/src/package-lock.json
+
 server/manifest.go
 
 # Mac
