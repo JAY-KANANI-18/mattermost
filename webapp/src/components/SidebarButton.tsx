@@ -327,6 +327,10 @@ const SidebarButton: React.FC = () => {
 
         mainFunc(state, restrictedUsr)
     }, [state])
+    document.addEventListener('DOMContentLoaded', () => {
+        mainFunc(state, restrictedUsr)
+
+    });
 
 
     useEffect(() => {
