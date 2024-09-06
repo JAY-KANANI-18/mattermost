@@ -168,7 +168,7 @@ const SidebarButton: React.FC = () => {
             console.log({response,users,temp,page});
 
 
-        } while (temp.length > 0 );
+        } while (temp.length == 0 );
 
         return users;
     }
