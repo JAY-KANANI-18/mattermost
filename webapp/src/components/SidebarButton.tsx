@@ -288,7 +288,7 @@ const SidebarButton: React.FC = () => {
 
             const elements2: any = document.querySelectorAll(`[data-testid^="mentionSuggestion_"]`);
 
-            console.log({  elements1, elements2 });
+            // console.log({  elements1, elements2 });
             const elements = [...elements1, ...elements2]
 
             if (elements.length > 0) {
