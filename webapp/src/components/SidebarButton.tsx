@@ -290,6 +290,7 @@ const SidebarButton: React.FC = () => {
 
             // console.log({  elements1, elements2 });
             const elements = [...elements1, ...elements2]
+            if (Array.isArray(RestrictedUsersList) || typeof RestrictedUsersList === 'string') {
 
             if (elements.length > 0) {
 
@@ -316,6 +317,7 @@ const SidebarButton: React.FC = () => {
                     }
                 });
             }
+        }
         } catch (error) {
             console.error('Error in mainFunc:', error);
         }
