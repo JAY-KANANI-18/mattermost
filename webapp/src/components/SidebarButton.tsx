@@ -50,8 +50,8 @@ const SidebarButton: React.FC = () => {
     const state = useSelector((state: GlobalState) => state);
 
 
-    // const Url = "http://localhost:8065"
-    const Url = "https://chat.crmtiger.com"
+    const Url = "http://localhost:8065"
+    // const Url = "https://chat.crmtiger.com"
 
 
 
@@ -336,6 +336,7 @@ const SidebarButton: React.FC = () => {
     // });
 
     const observer = new MutationObserver((mutations) => {
+        console.log({state});
         mutations.forEach((mutation) => {
             if (mutation.type === 'childList' || mutation.type === 'attributes') {
                 mainFunc(state, restrictedUsr);
@@ -349,7 +350,8 @@ const SidebarButton: React.FC = () => {
 
     useEffect(() => {
         // This effect will run whenever `someState` changes
-
+        console.log({state});
+        
         async function getp() {
             const RestrictedUsersList = await getRestrictedUsersList(state)
             // console.log({RestrictedUsersList});
