@@ -162,11 +162,16 @@ const SidebarButton: React.FC = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+
             temp = response.data
-            users.push(...temp)
-            page++
-            temp = []
-            console.log();
+            if (temp.length > 0) {
+                users.push(...temp); // Add users from the current page
+                page++; // Move to the next page
+            } else {
+                // Break the loop if no more data is available
+                break;
+            }
+     
             
             console.log({response,users,temp,page});
 
