@@ -157,7 +157,7 @@ const SidebarButton: React.FC = () => {
         let page = 0
         do {
 
-            const response = await axios.get(`${Url}/api/v4/users?page=${page}&per_page=200`, {
+            const response = await axios.get(`${Url}/api/v4/users?page=${page}&per_page=1`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
