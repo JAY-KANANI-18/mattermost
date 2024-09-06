@@ -336,10 +336,9 @@ const SidebarButton: React.FC = () => {
     // });
 
     const observer = new MutationObserver((mutations) => {
-        console.log({state});
         const current = state.entities.users.currentUserId
         const find = state.entities.users.profiles[current].roles.includes("system_admin")
-        if(find) { console.log("return");
+        if(find) { 
             return}        mutations.forEach((mutation) => {
             if (mutation.type === 'childList' || mutation.type === 'attributes') {
                 mainFunc(state, restrictedUsr);
@@ -354,10 +353,9 @@ const SidebarButton: React.FC = () => {
     useEffect(() => {
         const current = state.entities.users.currentUserId
         const find = state.entities.users.profiles[current].roles.includes("system_admin") || state.entities.users.profiles[current].roles.includes("team_admin")
-        if(find) { console.log("return");
+        if(find) { 
          return}
         // This effect will run whenever `someState` changes
-        console.log({state});
         
         async function getp() {
             const RestrictedUsersList = await getRestrictedUsersList(state)
