@@ -302,7 +302,7 @@ const SidebarButton: React.FC = () => {
 
                     if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
 
-                        if (element) {
+                        // if (element) {
                             try {
                                 element.style.display = 'none';
 
@@ -310,7 +310,7 @@ const SidebarButton: React.FC = () => {
                             } catch (error) {
                                 // console.error('Error safely removing element:', error);
                             }
-                        }
+                        // }
 
                     }
                 });
