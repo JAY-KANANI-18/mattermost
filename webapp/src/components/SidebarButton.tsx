@@ -152,7 +152,7 @@ const SidebarButton: React.FC = () => {
     const getAllUsers = async (token: any) => {
 
 
-        let temp = []
+        let temp:any = []
         const users:any = []
         let page = 0
         do {
@@ -165,6 +165,9 @@ const SidebarButton: React.FC = () => {
             temp = response.data
             users.push(...temp)
             page++
+            temp = []
+            console.log();
+            
             console.log({response,users,temp,page});
 
 
