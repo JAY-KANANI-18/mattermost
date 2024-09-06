@@ -296,7 +296,7 @@ const SidebarButton: React.FC = () => {
                 elements.forEach((element: any) => {
                     const idValue = element.id.replace("switchChannel_", "");
                     const dataValue = element.getAttribute("data-testid").replace("mentionSuggestion_", "");
-                    console.log({ dataValue });
+                    // console.log({ dataValue });
                     // console.log({ RestrictedUsersList });
                     // console.log(RestrictedUsersList.includes(dataValue));
 
@@ -323,11 +323,11 @@ const SidebarButton: React.FC = () => {
     // let RestrictedUsersList:any =  []
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
-    useEffect(() => {
-        console.log({restrictedUsr});
+    // useEffect(() => {
+    //     console.log({restrictedUsr});
 
-        mainFunc(state, restrictedUsr)
-    }, [state])
+    //     mainFunc(state, restrictedUsr)
+    // }, [state])
     // document.addEventListener('DOMContentLoaded', () => {
     //     mainFunc(state, restrictedUsr)
 
