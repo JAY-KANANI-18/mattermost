@@ -49,8 +49,8 @@ const SidebarButton: React.FC = () => {
     const state = useSelector((state: GlobalState) => state);
 
 
-    // const Url = "http://localhost:8065"
-    const Url = "https://chat.crmtiger.com"
+    const Url = "http://localhost:8065"
+    // const Url = "https://chat.crmtiger.com"
 
 
 
@@ -320,7 +320,7 @@ const SidebarButton: React.FC = () => {
     //  RestrictedUsersList = RestrictedUsersList.map((usr:any)=>usr.username)
 
     useEffect(() => {
-        // console.log({restrictedUsr});
+        console.log({restrictedUsr});
 
         mainFunc(state, restrictedUsr)
     }, [state])
