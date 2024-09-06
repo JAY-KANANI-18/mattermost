@@ -280,7 +280,7 @@ const SidebarButton: React.FC = () => {
 
 
             // // Remove elements not in the validUsers set
-            switchChannel_jayk
+            // switchChannel_jayk
 
 
             const elements1: any = document.querySelectorAll('[id^="switchChannel_"]');
