@@ -230,7 +230,7 @@ const SidebarButton: React.FC = () => {
             }
             // console.log({ usernames });
 
-            return await allUsers.filter((element: any) => !usernames.includes(element.username)).map((el: any) => el.username);
+            return await allUsers.filter((element: any) => !usernames?.includes(element.username))?.map((el: any) => el.username);
         } catch (e) {
             console.log(e);
 
@@ -301,7 +301,7 @@ const SidebarButton: React.FC = () => {
                     // console.log(RestrictedUsersList.includes(dataValue));
 
 
-                    if ((idValue && RestrictedUsersList.includes(idValue)) || (dataValue && RestrictedUsersList.includes(dataValue))) {
+                    if ((idValue && RestrictedUsersList?.includes(idValue)) || (dataValue && RestrictedUsersList?.includes(dataValue))) {
 
                         // if (element) {
                             try {
